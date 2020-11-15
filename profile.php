@@ -152,7 +152,7 @@
 			          		Reviews
 			        	</a>
 			        	<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-			          		<a class="dropdown-item" href="#">View Reviews</a>
+			          		<a class="dropdown-item" href="/cpsc304/view-reviews.php">View Reviews</a>
 			          		<a class="dropdown-item" href="#">Write a Review</a>
 			        	</div>
 			      	</li>
