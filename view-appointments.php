@@ -2,19 +2,38 @@
 	
 	include 'connect.php';
 	$conn = OpenCon();
+	session_start();
 
-	// Display information of all hotlines
-	function showHotlines() {
+	// Display information of all appointments (both past and present)
+	function showAppointments() {
 
 		global $conn;  
-		$sql = "SELECT name, phoneNum, typeOfHelp FROM Hotline";
+		$sql = "";
+
+		if($_SESSION["userType"] == "helpSeeker") {
+
+			$sql = "SELECT name, date, startTime, endTime, meetingPlatform
+					FROM users U, appointment A
+					WHERE U.userID = A.counsellorID AND 
+						  A.helpSeekerID =".$_SESSION["userID"];
+
+		} else {
+			
+			$sql = "SELECT name, date, startTime, endTime, meetingPlatform
+					FROM users U, appointment A
+					WHERE U.userID = A.helpSeekerID AND 
+						  A.counsellorID =".$_SESSION["userID"];
+		}
+
 		$result = $conn->query($sql);
 
 		while($row = $result->fetch_assoc()) { 
 			echo "<tr>
 					<td>".$row["name"]."</td>
-					<td>".$row["phoneNum"]."</td>
-					<td>".$row["typeOfHelp"]."</td>
+					<td>".$row["date"]."</td>
+					<td>".$row["startTime"]."</td>
+					<td>".$row["endTime"]."</td>
+					<td>".$row["meetingPlatform"]."</td>
 				  </tr>";
 		}
 	}
@@ -55,7 +74,7 @@
 			          	Appointments
 			        	</a>
 				        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-				        	<a class="dropdown-item" href="/cpsc304/view-appointments.php">View Appointments</a>
+				        	<a class="dropdown-item active" href="/cpsc304/view-appointments.php">View Appointments</a>
 				        	<a class="dropdown-item" href="#">Book an Appointment</a>
 				        </div>
 			      	</li>
@@ -86,7 +105,7 @@
 			        	</a>
 				        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 				        	<a class="dropdown-item" href="/cpsc304/user-directory.php">Users</a>
-				        	<a class="dropdown-item active" href="/cpsc304/hotline-directory.php">Hotlines</a>
+				        	<a class="dropdown-item" href="/cpsc304/hotline-directory.php">Hotlines</a>
 				        	<a class="dropdown-item" href="#">Resource Centers</a>
 				        	<a class="dropdown-item" href="#">Types of Help</a>
 				        </div>
@@ -98,16 +117,18 @@
 		
 		<!-- Page content -->
 		<div class = "container">
-			<h1 class = "text-center mt-5 mb-4"> Hotline Directory </h1>
+			<h1 class = "text-center mt-5 mb-4"> All Appointments </h1>
 			<table class="table mt-5 mb-5">
 			<thead>
 				<tr>
 					<th>Name</th>
-					<th>Phone Number</th>
-					<th>Type of Help</th>
+					<th>Date</th>
+					<th>Start Time</th>
+					<th>End Time</th>
+					<th>Platform</th>
 				</tr>
 			</thead>
-			<?php showHotlines() ?>
+				<?php showAppointments() ?>
 			</table>
 		</div>
 	</body>

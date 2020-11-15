@@ -2,6 +2,17 @@
 SELECT userID, name, age, location, email, phone FROM Users;
 SELECT name, phoneNum, typeOfHelp FROM Hotline;
 
+# Join
+SELECT name, date, startTime, endTime, meetingPlatform
+FROM users U, appointment A
+WHERE U.userID = A.counsellorID AND 
+	 A.helpSeekerID = $_SESSION["userID"];
+
+SELECT name, date, startTime, endTime, meetingPlatform
+FROM users U, appointment A
+WHERE U.userID = A.helpSeekerID AND 
+	  A.counsellorID = $_SESSION["userID"];
+
 # Division 
 # Find the helpseeker that has booked an appointment with all counsellors
 SELECT name

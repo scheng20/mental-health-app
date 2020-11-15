@@ -100,7 +100,7 @@
 			          	Appointments
 			        	</a>
 				        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-				        	<a class="dropdown-item" href="#">View Appointments</a>
+				        	<a class="dropdown-item" href="/cpsc304/view-appointments.php">View Appointments</a>
 				        	<a class="dropdown-item" href="#">Book an Appointment</a>
 				        </div>
 			      	</li>
