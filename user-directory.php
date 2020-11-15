@@ -6,13 +6,12 @@
 	function showUsers() {
 
 		global $conn;  
-		$sql = "SELECT * FROM Users";
+		$sql = "SELECT userID, name, age, location, email, phone FROM Users";
 		$result = $conn->query($sql);
 
 		while($row = $result->fetch_assoc()) { 
 			echo "<tr>
 					<td>".$row["userID"]."</td>
-					<td>".$row["password"]."</td>
 					<td>".$row["name"]."</td>
 					<td>".$row["age"]."</td>
 					<td>".$row["location"]."</td>
@@ -20,6 +19,21 @@
 					<td>".$row["phone"]."</td>
 				  </tr>";
 		}
+	}
+
+	function showTopHelpSeeker() {
+		global $conn;
+		$sql = ""; // TODO
+
+		echo "dunno";
+
+	}
+
+	function showTopCounsellor() {
+		global $conn;
+		$sql = ""; // TODO
+
+		echo "dunno";
 	}
 ?>
 
@@ -33,6 +47,7 @@
 
 	<body>
 
+		<!-- Navbar -->
 		<nav class="navbar navbar-expand-lg">
 			<a class="navbar-brand" href="#">Mental Health Webapp</a>
 			 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,13 +82,17 @@
 	  		</div>
 		</nav>
 
+		<!-- Page content -->
 		<div class = "container">
-			<h1 class = "text-center mt-5 mb-5"> User Directory </h1>
-			<table class="table">
+			<h1 class = "text-center mt-5 mb-4"> User Directory </h1>
+
+			<p> Top help seeker (booked an appointment with all counsellors): <?php showTopHelpSeeker() ?></p> 
+			<p> Top counsellor (booked an appointment with all help seekers): <?php showTopCounsellor() ?></p> 
+
+			<table class="table mt-5 mb-5">
 			<thead>
 				<tr>
 					<th>userID</th>
-					<th>password</th>
 					<th>name</th>
 					<th>age</th>
 					<th>location</th>
