@@ -1,35 +1,22 @@
-# THIS NEEDS TO BE CHANGED TO AUTO INCREMENT
 INSERT INTO 
-	Users (userID, password, name, age, location, email, phone)
-VALUES 
-	(12, 'lJ8ijerkjk', 'Shannon A', 19, 'Canada', 'shan@gmail.com','7770939999'),
-	(11, 'abc123de', 'Alex B', 29, 'Canada', 'alexb66@gmail.com','1992223893'),
-	(15, 'ilovefun00', 'Kayla C', NULL, 'Canada', 'kay@gmail.com', NULL),
-	(9, 'lalllaooiqwe', 'Daniel D', 16, 'Canada', 'dan@gmail.com', NULL),
-	(7, '091ABC39', 'Piper L', 20, 'Canada', 'pip@gmail.com', NULL),
-	(1, 'klajsdj', 'Dr. Hans B', 50, 'Canada', 'hans@gmail.com', '7802341234'),
-	(2, 'oqwieuiu11', 'Jamie P', 54, 'Canada', 'jamiep@mail.com', '1129028874'),
-	(3, 'Asdsio00d', 'Tyler C', 45, 'Canada', 'tyler@yahoo.com', '5564782346'),
-	(4, 'Poioifeqh10', 'Qing W', 58, 'Canada', 'qing@gmail.com', '8990297563'),
-	(5, 'ilovepizza', 'Miranda K', 33, 'Canada', 'miranda@gmail.com', '9926374837');
-
-# AUTO INCREMENT EXAMPLE BUT NOT COMPLETED
-INSERT INTO 
-	Users (userID, password, name, age, location, email, phone)
+	Users (password, name, age, location, email, phone)
 VALUES 
 	('klajsdj', 'Dr. Hans B', 50, 'Canada', 'hans@gmail.com', '7802341234'),
 	('oqwieuiu11', 'Jamie P', 54, 'Canada', 'jamiep@mail.com', '1129028874'),
-	(12, 'lJ8ijerkjk', 'Shannon A', 19, 'Canada', 'shan@gmail.com','7770939999'),
-	(11, 'abc123de', 'Alex B', 29, 'Canada', 'alexb66@gmail.com','1992223893'),
-	(15, 'ilovefun00', 'Kayla C', NULL, 'Canada', 'kay@gmail.com', NULL),
-	(9, 'lalllaooiqwe', 'Daniel D', 16, 'Canada', 'dan@gmail.com', NULL),
-	(7, '091ABC39', 'Piper L', 20, 'Canada', 'pip@gmail.com', NULL),
-	(1, 'klajsdj', 'Dr. Hans B', 50, 'Canada', 'hans@gmail.com', '7802341234'),
+	('Asdsio00d', 'Tyler C', 45, 'Canada', 'tyler@yahoo.com', '5564782346'),
+	('Poioifeqh10', 'Qing W', 58, 'Canada', 'qing@gmail.com', '8990297563'),
+	('ilovepizza', 'Miranda K', 33, 'Canada', 'miranda@gmail.com', '9926374837'),
+	('klajOOOpsadj', 'Andy P', 45, 'Canada', 'andyp0103@gmail.com', '9901231928'),
+	('091ABC39', 'Piper L', 20, 'Canada', 'pip@gmail.com', NULL),
+	('ABCDe12', 'Katrina L', 31, 'Canada', 'cat001123@gmail.com', NULL),
+	('lalllaooiqwe', 'Daniel D', 16, 'Canada', 'dan@gmail.com', NULL),
+	('laksdjkljf01', 'Jamie L', 18, 'Canada', 'jamiel@gmail.com', NULL),
+	('abc123de', 'Alex B', 29, 'Canada', 'alexb66@gmail.com','1992223893'),
+	('lJ8ijerkjk', 'Shannon A', 19, 'Canada', 'shan@gmail.com','7770939999'),
+	('009asdop', 'Layla L', 78, 'Canada', 'layla0011@gmail.com', '7789928391'),
+	('jkasdhashd', 'Bella L', 20, 'Canada', 'bellalol@gmail.com', NULL),
+	('ilovefun00', 'Kayla C', NULL, 'Canada', 'kay@gmail.com', NULL);
 	
-	(3, 'Asdsio00d', 'Tyler C', 45, 'Canada', 'tyler@yahoo.com', '5564782346'),
-	(4, 'Poioifeqh10', 'Qing W', 58, 'Canada', 'qing@gmail.com', '8990297563'),
-	(5, 'ilovepizza', 'Miranda K', 33, 'Canada', 'miranda@gmail.com', '9926374837');
-
 INSERT INTO
 	HelpSeeker(userID, numCounsellors, numReviews)
 VALUES
@@ -37,7 +24,11 @@ VALUES
 	(9,1,1),
 	(11,1,1),
 	(12,1,0),
-	(15,1,1);
+	(8,0,0),
+	(15,1,1),
+	(10,1,0),
+	(13,0,0),
+	(14,1,0);
 
 INSERT INTO
 	CounsellorYearsExperience(yearsExperience, level)
@@ -55,7 +46,8 @@ VALUES
 	(2, 15, 'certified',2),
 	(3, 10, 'certified',0),
 	(4, 25, 'certified',2),
-	(5, 5, 'in progress', 0);
+	(5, 5, 'in progress', 0),
+	(6, 10, 'certified', 0);
 
 INSERT INTO
 	Appointment (appointmentID, counsellorID, helpSeekerID, meetingPlatform, date, startTime, endTime)
