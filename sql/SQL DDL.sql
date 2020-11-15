@@ -1,5 +1,5 @@
 CREATE TABLE Users (
-	userID		int			 PRIMARY KEY,
+	userID		int			 PRIMARY KEY AUTO_INCREMENT,
 	password	varchar(50) 	NOT NULL,
 	name		varchar(100) 	NOT NULL,
 	age			int,
@@ -16,8 +16,8 @@ CREATE TABLE HelpSeeker (
 );
 
 CREATE TABLE CounsellorYearsExperience (
-	yearsExperience	int 		    PRIMARY KEY,
-	level			int             NOT NULL
+	yearsExperience	int 		    		PRIMARY KEY,
+	level			varchar(100)             NOT NULL
 );
 
 CREATE TABLE Counsellor (
@@ -25,7 +25,7 @@ CREATE TABLE Counsellor (
 	yearsExperience		int,
 	certification		varchar(500)    NOT NULL,
 	numPatients			int,			
-	FOREIGN KEY (userID) REFERENCES Users(userID) ON DELETE CASCADE
+	FOREIGN KEY (userID) REFERENCES Users(userID) ON DELETE CASCADE,
 	FOREIGN KEY (yearsExperience) REFERENCES CounsellorYearsExperience(yearsExperience) ON DELETE CASCADE
 );
 
@@ -60,5 +60,5 @@ CREATE TABLE Hotline (
 
 CREATE TABLE TypesOfHelp (
 	helpType		varchar(50)	PRIMARY KEY,
-	description		varchar(100000),
+	description		varchar(100000)
 );
