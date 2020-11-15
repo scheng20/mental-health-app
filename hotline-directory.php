@@ -38,52 +38,55 @@
 	<body>
 
 		<!-- Navbar -->
-		<nav class="navbar navbar-expand-lg">
+		<nav class="navbar navbar-expand-lg navbar-dark">
 			<a class="navbar-brand" href="#">Mental Health Webapp</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
 		 	<div class="collapse navbar-collapse" id="navbarNav">
 		 		<ul class="navbar-nav">
 
 		 			<li class="nav-item">
-			        	<a class="nav-link" href="#">Profile</a>
+			        	<a class="nav-link" href="/cpsc304/profile.php">Profile</a>
 			      	</li>
 
 			      	<li class="nav-item dropdown">
-			        	<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+			        	<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			          	Appointments
 			        	</a>
-				        <div class="dropdown-menu">
+				        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 				        	<a class="dropdown-item" href="#">View Appointments</a>
 				        	<a class="dropdown-item" href="#">Book an Appointment</a>
 				        </div>
 			      	</li>
 
 			     	<li class="nav-item dropdown">
-			        	<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+			        	<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			          		Reviews
 			        	</a>
-			        	<div class="dropdown-menu">
+			        	<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 			          		<a class="dropdown-item" href="#">View Reviews</a>
 			          		<a class="dropdown-item" href="#">Write a Review</a>
 			        	</div>
 			      	</li>
 
-			     	<li class="nav-item dropdown">
-			        	<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+			     	<li class="nav-item dropdown" aria-labelledby="navbarDropdownMenuLink">
+			        	<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			          		Posts
 			        	</a>
-				        <div class="dropdown-menu">
+				        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 				        	<a class="dropdown-item" href="#">View Posts</a>
 				        	<a class="dropdown-item" href="#">Write a Post</a>
 				        </div>
 			      	</li>
 
 			      	<li class="nav-item dropdown">
-			        	<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+			        	<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			          		Directories
 			        	</a>
-				        <div class="dropdown-menu">
+				        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 				        	<a class="dropdown-item" href="/cpsc304/user-directory.php">Users</a>
-				        	<a class="dropdown-item active" href="#">Hotlines</a>
+				        	<a class="dropdown-item active" href="/cpsc304/hotline-directory.php">Hotlines</a>
 				        	<a class="dropdown-item" href="#">Resource Centers</a>
 				        	<a class="dropdown-item" href="#">Types of Help</a>
 				        </div>
