@@ -1,5 +1,6 @@
 # Projection
 SELECT userID, name, age, location, email, phone FROM Users;
+SELECT name, phoneNum, typeOfHelp FROM Hotline;
 
 # Division 
 # Find the helpseeker that has booked an appointment with all counsellors
