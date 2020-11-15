@@ -51,14 +51,14 @@ CREATE TABLE Review (
 	FOREIGN KEY (counsellor) REFERENCES Counsellor(userID) ON DELETE CASCADE
 );
 
+CREATE TABLE TypesOfHelp (
+	helpType		varchar(50)	PRIMARY KEY,
+	description		varchar(100000)
+);
+
 CREATE TABLE Hotline (
 	phoneNum		char(12)        PRIMARY KEY,
 	typeOfHelp		varchar(50)     DEFAULT "General",
 	name			varchar(100)    NOT NULL,
 	FOREIGN KEY (typeOfHelp) REFERENCES TypesOfHelp(helpType) ON UPDATE CASCADE ON DELETE SET NULL
-);
-
-CREATE TABLE TypesOfHelp (
-	helpType		varchar(50)	PRIMARY KEY,
-	description		varchar(100000)
 );
