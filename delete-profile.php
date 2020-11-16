@@ -2,123 +2,20 @@
 	
 	include 'connect.php';
 	$conn = OpenCon();
-
 	session_start();
-	$_SESSION["userID"] = 15; // HARDCODED USER ID FOR LOCAL TESTING PURPOSES, REMOVE LATER
 
-	// Determine if the current user is a counsellor or help seeker
-	// NOTE: This function may need to be refactored to be in the login page instead
-	function setUserType() {
-		global $conn;
-		global $userType;
-
-		$sql = "SELECT COUNT(1)
-				FROM helpSeeker
-				WHERE userID =".$_SESSION['userID'];
-
-		$result = $conn->query($sql);
-		$row = $result->fetch_assoc();
-		$num = $row["COUNT(1)"];
-
-		if($num == 1) {
-			$_SESSION["userType"] = "helpSeeker";
-		} else {
-			$_SESSION["userType"] = "counsellor";
-		}
-	}
-
-	// Display basic information of user
-	function showBasicInfo() {
-
+	// Check if the delete button is clicked
+	if(isset($_POST['deleteSubmit'])){ 
+		deleteUser();
+	} 
+	
+	// Delete User
+	function deleteUser() {
 		global $conn;  
-		$sql = "SELECT name, age, location, email, phone FROM Users WHERE userID =". $_SESSION['userID'];
-		$result = $conn->query($sql);
-
-		$row = $result->fetch_assoc();
-
-		echo "<p><b>Name: </b>".$row["name"]."</p>
-			  <p><b>Age: </b>".$row["age"]."</p>
-			  <p><b>Location: </b>".$row["location"]."</p>
-			  <p><b>Email: </b>".$row["email"]."</p
-			  <p><b>Phone: </b>".$row['phone']."</p>";
-	}
-
-	// Display basic user profile information
-	function showProfilePicture() {
-
-		if($_SESSION["userType"] == "helpSeeker") {
-			echo "<img src='../cpsc304/assets/helpseeker-pfp.png' class='img-fluid img-max'>";
-		} else {
-			echo "<img src='../cpsc304/assets/counsellor-pfp.png' class='img-fluid img-max'>";
-		}
-	}
-
-	// Display counsellor details if user is a counsellor
-	function showCounsellorDetails() {
-
-		global $conn;
-		$sql = "SELECT yearsExperience, certification, numPatients 
-				FROM counsellor
-				WHERE userID =".$_SESSION['userID'];
-		$result = $conn->query($sql);
-		$row = $result->fetch_assoc();
-
-		echo "<p><b>Years of Experience: </b>".$row["yearsExperience"]."</p>
-			  <p><b>Certification: </b>".$row["certification"]."</p>
-			  <p><b>Number of people helped: </b>".$row["numPatients"]."</p>";
-
-	}
-
-	// Display the hotlines related to the user
-	function showHotlines() {
-
-		if($_SESSION["userType"] == "helpSeeker") {
-			echo "<p><b> Favourite Hotlines </b></p>";
-		} else {
-			echo "<p><b> Recommended Hotlines </b></p>";
-		}
-
-		echo "<table class='table mb-5 mr-3'>
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Phone Number</th>
-						<th>Type of Help</th>
-					</tr>
-				</thead>
-	 		";
-
-	 	// TODO
-
-		echo "</table>";
-		
-	}
-
-	// Display the resource centres related to the user
-	function showCentres() {
-		global $userType;
-
-		if($_SESSION["userType"] == "helpSeeker") {
-			echo "<p><b> Favourite Centres </b></p>";
-		} else {
-			echo "<p><b> Recommended Centres </b></p>";
-		}
-
-		echo "<table class='table mb-5 mr-3'>
-				<thead>
-					<tr>
-						<th>Center Name</th>
-						<th>Address</th>
-						<th>Email</th>
-						<th>Phone Number</th>
-					</tr>
-				</thead>
-			 ";
-
-		// TODO
-
-		echo "</table>";
-
+		$sql = "DELETE FROM Users WHERE userID =". $_SESSION['userID'];
+		$conn->query($sql);
+		header("Location: /cpsc304/test.php"); // TEMPORARY LOCATION, REDIRECT TO LOGIN PAGE IN FUTURE
+    	exit;
 	}
 
 ?>
@@ -200,34 +97,15 @@
 		</nav>
 		
 		<!-- Page content -->
-		<?php setUserType() ?>
 		<div class = "container">
-			<h1 class = "text-center mt-5 mb-5"> User Profile </h1>
-			<div class = "row">
-				<div class ="col-3 mr-3 text-center">
-					<?php showProfilePicture() ?>
-				</div>
-				<div class ="col">
-					<?php showBasicInfo() ?>
-					
-				</div>
-				<div class = "col">
-					<?php 
-						if($_SESSION["userType"] == "counsellor") {
-							showCounsellorDetails();
-						}
-					?>
-					<a href="/cpsc304/edit-profile.php" class="btn btn-success mr-3">Edit Profile</a>
-					<a href="/cpsc304/delete-profile.php" class="btn btn-danger">Delete Account</a>
-				</div>
-			</div>
-			<div class = "row mt-5">
-				<div class = "col text-center">
-					<?php showHotlines() ?>
-				</div>
-				<div class = "col text-center">
-					<?php showCentres() ?>
-				</div>
+			<h1 class = "text-center mt-5 mb-5"> Profile Deletion </h1>
+			<h3 class = "text-center mt-5 mb-5"> ⚠ This is a irreversible action, are you sure you want to proceed? ⚠ </h3>
+			<p class = "text-center"> We are sad to see you leave 😿 </p>
+			<div class = "row justify-content-center mt-5">
+				<form action = '' method='POST'>
+					<button name='deleteSubmit' type='submit' class='btn btn-danger mr-3'>Ya, I'm outta here</button>
+					<a href='/cpsc304/profile.php' class='btn btn-success'>No, take me back to safety</a>
+				</form>
 			</div>
 		</div>
 	</body>
