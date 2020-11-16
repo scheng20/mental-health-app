@@ -4,7 +4,7 @@
 	$conn = OpenCon();
 
 	session_start();
-	$_SESSION["userID"] = 2; // HARDCODED USER ID FOR LOCAL TESTING PURPOSES, REMOVE LATER
+	$_SESSION["userID"] = 7; // HARDCODED USER ID FOR LOCAL TESTING PURPOSES, REMOVE LATER
 
 	// Determine if the current user is a counsellor or help seeker
 	// NOTE: This function may need to be refactored to be in the login page instead
@@ -217,8 +217,8 @@
 							showCounsellorDetails();
 						}
 					?>
-					<a href="#" rel="noopener noreferrer" class="btn btn-success mr-3">Edit Profile</a>
-					<a href="#" rel="noopener noreferrer" class="btn btn-danger">Delete Account</a>
+					<a href="/cpsc304/edit-profile.php" class="btn btn-success mr-3">Edit Profile</a>
+					<a href="#" class="btn btn-danger">Delete Account</a>
 				</div>
 			</div>
 			<div class = "row mt-5">

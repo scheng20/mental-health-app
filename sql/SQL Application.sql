@@ -7,6 +7,20 @@ SELECT yearsExperience, certification, numPatients
 FROM counsellor
 WHERE userID = $_SESSION["userID"];
 
+# Update
+UPDATE Users 
+SET email = '$email',
+	password = '$password',
+	name = '$name',
+	age = '$age',
+	phone = '$phone'
+WHERE userID = $_SESSION["userID"];
+
+UPDATE Counsellor
+SET yearsExperience = '$experience',
+	certification = '$certification'
+WHERE userID =.$_SESSION["userID"];
+
 # Join
 SELECT name, date, startTime, endTime, meetingPlatform
 FROM Users U, Appointment A
