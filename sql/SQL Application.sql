@@ -21,6 +21,9 @@ SET yearsExperience = '$experience',
 	certification = '$certification'
 WHERE userID =.$_SESSION["userID"];
 
+# Delete
+DELETE FROM Users WHERE userID = $_SESSION['userID'];
+
 # Join
 SELECT name, date, startTime, endTime, meetingPlatform
 FROM Users U, Appointment A
