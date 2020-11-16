@@ -4,9 +4,10 @@
 	$conn = OpenCon();
 
 	session_start();
-	$_SESSION["userID"] = 7; // HARDCODED USER ID FOR LOCAL TESTING PURPOSES, REMOVE LATER
+	$_SESSION["userID"] = 2; // HARDCODED USER ID FOR LOCAL TESTING PURPOSES, REMOVE LATER
 
 	// Determine if the current user is a counsellor or help seeker
+	// NOTE: This function may need to be refactored to be in the login page instead
 	function setUserType() {
 		global $conn;
 		global $userType;
@@ -33,24 +34,39 @@
 		$sql = "SELECT name, age, location, email, phone FROM Users WHERE userID =". $_SESSION['userID'];
 		$result = $conn->query($sql);
 
-		while($row = $result->fetch_assoc()) { 
+		$row = $result->fetch_assoc();
 
-			echo "<p><b>Name: </b>".$row["name"]."</p>
-				  <p><b>Age: </b>".$row["age"]."</p>
-				  <p><b>Location: </b>".$row["location"]."</p>
-				  <p><b>Email: </b>".$row["email"]."</p
-				  <p><b>Phone: </b>".$row['phone']."</p>";
-		}
+		echo "<p><b>Name: </b>".$row["name"]."</p>
+			  <p><b>Age: </b>".$row["age"]."</p>
+			  <p><b>Location: </b>".$row["location"]."</p>
+			  <p><b>Email: </b>".$row["email"]."</p
+			  <p><b>Phone: </b>".$row['phone']."</p>";
 	}
 
 	// Display basic user profile information
 	function showProfilePicture() {
 
 		if($_SESSION["userType"] == "helpSeeker") {
-			echo "<img src='../cpsc304/assets/helpseeker-pfp.png' class='img-fluid'>";
+			echo "<img src='../cpsc304/assets/helpseeker-pfp.png' class='img-fluid img-max'>";
 		} else {
-			echo "<img src='../cpsc304/assets/counsellor-pfp.png' class='img-fluid'>";
+			echo "<img src='../cpsc304/assets/counsellor-pfp.png' class='img-fluid img-max'>";
 		}
+	}
+
+	// Display counsellor details if user is a counsellor
+	function showCounsellorDetails() {
+
+		global $conn;
+		$sql = "SELECT yearsExperience, certification, numPatients 
+				FROM counsellor
+				WHERE userID =".$_SESSION['userID'];
+		$result = $conn->query($sql);
+		$row = $result->fetch_assoc();
+
+		echo "<p><b>Years of Experience: </b>".$row["yearsExperience"]."</p>
+			  <p><b>Certification: </b>".$row["certification"]."</p>
+			  <p><b>Number of people helped: </b>".$row["numPatients"]."</p>";
+
 	}
 
 	// Display the hotlines related to the user
@@ -187,13 +203,22 @@
 		<?php setUserType() ?>
 		<div class = "container">
 			<h1 class = "text-center mt-5 mb-5"> User Profile </h1>
-			<div class = "row align-items-center">
-				<div class ="col-3 mr-3">
+			<div class = "row">
+				<div class ="col-3 mr-3 text-center">
 					<?php showProfilePicture() ?>
 				</div>
 				<div class ="col">
 					<?php showBasicInfo() ?>
-					<a href="#" rel="noopener noreferrer" class="btn btn-success">Edit Profile</a>
+					
+				</div>
+				<div class = "col">
+					<?php 
+						if($_SESSION["userType"] == "counsellor") {
+							showCounsellorDetails();
+						}
+					?>
+					<a href="#" rel="noopener noreferrer" class="btn btn-success mr-3">Edit Profile</a>
+					<a href="#" rel="noopener noreferrer" class="btn btn-danger">Delete Account</a>
 				</div>
 			</div>
 			<div class = "row mt-5">

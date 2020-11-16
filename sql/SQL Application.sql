@@ -2,6 +2,11 @@
 SELECT userID, name, age, location, email, phone FROM Users;
 SELECT name, phoneNum, typeOfHelp FROM Hotline;
 
+# Selection
+SELECT yearsExperience, certification, numPatients
+FROM counsellor
+WHERE userID = $_SESSION["userID"];
+
 # Join
 SELECT name, date, startTime, endTime, meetingPlatform
 FROM Users U, Appointment A
