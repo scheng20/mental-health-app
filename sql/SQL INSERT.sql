@@ -23,12 +23,12 @@ VALUES
 	(7,1,2),
 	(9,1,1),
 	(11,1,1),
-	(12,1,0),
-	(8,0,0),
-	(15,1,1),
-	(10,1,0),
-	(13,0,0),
-	(14,1,0);
+	(12,2,0),
+	(8,1,0),
+	(15,2,1),
+	(10,2,0),
+	(13,1,0),
+	(14,2,0);
 
 INSERT INTO
 	CounsellorYearsExperience(yearsExperience, level)
@@ -43,11 +43,11 @@ INSERT INTO
 	Counsellor(userID, yearsExperience, certification, numPatients)
 VALUES
 	(1, 10, 'certified',1),
-	(2, 15, 'certified',2),
-	(3, 10, 'certified',0),
-	(4, 25, 'certified',2),
-	(5, 5, 'in progress', 0),
-	(6, 10, 'certified', 0);
+	(2, 15, 'certified',3),
+	(3, 10, 'certified',1),
+	(4, 25, 'certified',3),
+	(5, 5, 'in progress', 1),
+	(6, 10, 'certified', 1);
 
 INSERT INTO
 	Appointment (appointmentID, counsellorID, helpSeekerID, meetingPlatform, date, startTime, endTime)
@@ -56,7 +56,18 @@ VALUES
 	(2, 2, 9, 'Zoom', '2020-10-29', '15:30', '16:00'),
 	(3, 2, 11, 'Zoom', '2020-11-06', '10:00', '11:00'),
 	(4, 4, 12, 'Zoom', '2020-11-21', '10:15', '11:00'),
-	(5, 4, 15, 'Hangouts', '2020-12-01', '12:00', '12:45');
+	(5, 4, 15, 'Hangouts', '2020-12-01', '12:00', '12:45'),
+	(6, 2, 7, 'Skype', '2020-12-15', '11:15', '12:00'),
+	(7, 3, 7, 'Skype', '2020-12-16', '11:15', '12:00'),
+	(8, 4, 7, 'Skype', '2020-12-17', '11:15', '12:00'),
+	(9, 5, 7, 'Skype', '2020-12-18', '11:15', '12:00'),
+	(10, 6, 7, 'Skype', '2020-12-19', '11:15', '12:00'),
+	(11, 2, 12, 'Hangouts', '2020-12-20', '13:15', '14:00'),
+	(12, 2, 8, 'Hangouts', '2020-12-21', '13:15', '14:00'),
+	(13, 2, 15, 'Hangouts', '2020-12-22', '13:15', '14:00'),
+	(14, 2, 10, 'Hangouts', '2020-12-23', '13:15', '14:00'),
+	(15, 2, 13, 'Hangouts', '2020-12-24', '13:15', '14:00'),
+	(16, 2, 14, 'Hangouts', '2020-12-25', '13:15', '14:00');
 
 INSERT INTO
 	Review (reviewID, reviewAuthor, counsellor, rating, feedback)

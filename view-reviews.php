@@ -2,66 +2,121 @@
 	
 	include 'connect.php';
 	$conn = OpenCon();
+	session_start();
 
-	// Display information of all users
-	function showUsers() {
+	// HelpSeeker
+	// Written Reviews
+	// All Reviews
 
+	// Counsellor
+	// Recieved Reviews
+	// All Reviews
+
+	// For a helpseeker, show the reviews they've written
+	function showWrittenReviews() {
+		global $conn;
+		$sql = "SELECT name, rating, feedback
+				FROM Users U, Review R
+				WHERE U.userID = R.counsellor AND
+					  R.reviewAuthor =".$_SESSION["userID"];
+
+		$result = $conn->query($sql);
+
+		if(mysqli_num_rows($result)==0) {
+
+			echo "<p class = 'text-center'> You have written no reviews! </p>";
+
+		} else {
+
+			echo "<table class= 'table mt-5 mb-5'>
+				<thead>
+					<tr>
+						<th>Counsellor</th>
+						<th>Session Rating</th>
+						<th>Feedback</th>
+					</tr>
+				</thead>";
+
+			while($row = $result->fetch_assoc()) { 
+				echo "<tr>
+						<td>".$row["name"]."</td>
+						<td>".$row["rating"]."</td>
+						<td>".$row["feedback"]."</td>
+					  </tr>";
+			}
+
+			echo "</table>";
+		}
+	}
+
+	// For a counsellor, show the reviews they've received
+	function showRecievedReviews() {
+		global $conn;
+		$sql = "SELECT name, rating, feedback
+				FROM Users U, Review R
+				WHERE U.userID = R.reviewAuthor AND
+					  R.counsellor =".$_SESSION["userID"];
+
+		$result = $conn->query($sql);
+
+		if(mysqli_num_rows($result)==0) {
+
+			echo "<p class = 'text-center'> You have received no reviews! </p>";
+
+		} else {
+
+			echo "<table class= 'table mt-5 mb-5'>
+				<thead>
+					<tr>
+						<th>HelpSeeker</th>
+						<th>Session Rating</th>
+						<th>Feedback</th>
+					</tr>
+				</thead>";
+
+			while($row = $result->fetch_assoc()) { 
+				echo "<tr>
+						<td>".$row["name"]."</td>
+						<td>".$row["rating"]."</td>
+						<td>".$row["feedback"]."</td>
+					  </tr>";
+			}
+
+			echo "</table>";
+		}
+	}
+
+	// Show the relevant type of reviews depending on user type
+	function showRelevantReviews() {
+
+		if($_SESSION["userType"] == "helpSeeker") {
+			echo "<h1 class = 'text-center mt-5 mb-4'> Written Reviews </h1>";
+			showWrittenReviews();
+		} else {
+			echo "<h1 class = 'text-center mt-5 mb-4'> Recieved Reviews </h1>";
+			showRecievedReviews();
+		}
+
+	}
+
+	// Show all reviews in the platform
+	function showAllReviews() {
 		global $conn;  
-		$sql = "SELECT userID, name, age, location, email, phone FROM Users";
+		$sql = "SELECT U1.name AS author, U2.name AS receiver, rating, feedback
+				FROM Users U1, Users U2, Review R
+				WHERE U1.userID = R.reviewAuthor AND
+					  U2.userID = R.counsellor";
+
 		$result = $conn->query($sql);
 
 		while($row = $result->fetch_assoc()) { 
 			echo "<tr>
-					<td>".$row["userID"]."</td>
-					<td>".$row["name"]."</td>
-					<td>".$row["age"]."</td>
-					<td>".$row["location"]."</td>
-					<td>".$row["email"]."</td>
-					<td>".$row["phone"]."</td>
+					<td>".$row["author"]."</td>
+					<td>".$row["receiver"]."</td>
+					<td>".$row["rating"]."</td>
+					<td>".$row["feedback"]."</td>
 				  </tr>";
 		}
-	}
-
-	// Find the helpseeker that has booked an appointment with all counsellors
-	function showTopHelpSeeker() {
-		global $conn;
-		$sql = "SELECT name
-				FROM Users U, Helpseeker H
-				WHERE U.userID = H.userID AND
-					NOT EXISTS (
-						(SELECT C.userID
-						 FROM Counsellor C)
-						EXCEPT
-						(SELECT C.userID
-						 FROM Counsellor C, Appointment A 
-						 WHERE C.userID = A.counsellorID AND
-						 	   H.userID = A.helpSeekerID)
-					)";
-
-		$result = $conn->query($sql);
-		$row = $result->fetch_assoc();
-		echo $row["name"];
-	}
-
-	// Find the counsellor that has booked an appointment with all help seekers
-	function showTopCounsellor() {
-		global $conn;
-		$sql = "SELECT name
-				FROM Users U, Counsellor C
-				WHERE U.userID = C.userID AND
-					NOT EXISTS (
-						(SELECT H.userID
-						 FROM HelpSeeker H)
-						EXCEPT
-						(SELECT H.userID
-						 FROM Helpseeker H, Appointment A 
-						 WHERE C.userID = A.counsellorID AND
-						 	   H.userID = A.helpSeekerID)
-					)"; 
-
-		$result = $conn->query($sql);
-		$row = $result->fetch_assoc();
-		echo $row["name"];
 	}
 ?>
 
@@ -110,7 +165,7 @@
 			          		Reviews
 			        	</a>
 			        	<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-			          		<a class="dropdown-item" href="/cpsc304/view-reviews.php">View Reviews</a>
+			          		<a class="dropdown-item active" href="/cpsc304/view-reviews.php">View Reviews</a>
 			          		<a class="dropdown-item" href="#">Write a Review</a>
 			        	</div>
 			      	</li>
@@ -130,7 +185,7 @@
 			          		Directories
 			        	</a>
 				        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-				        	<a class="dropdown-item active" href="/cpsc304/user-directory.php">Users</a>
+				        	<a class="dropdown-item" href="/cpsc304/user-directory.php">Users</a>
 				        	<a class="dropdown-item" href="/cpsc304/hotline-directory.php">Hotlines</a>
 				        	<a class="dropdown-item" href="#">Resource Centers</a>
 				        	<a class="dropdown-item" href="#">Types of Help</a>
@@ -140,26 +195,21 @@
 			    </ul>
 	  		</div>
 		</nav>
-
+		
 		<!-- Page content -->
 		<div class = "container">
-			<h1 class = "text-center mt-5 mb-4"> User Directory </h1>
-
-			<p> Top help seeker (booked an appointment with all counsellors): <?php showTopHelpSeeker() ?></p> 
-			<p> Top counsellor (booked an appointment with all help seekers): <?php showTopCounsellor() ?></p> 
-
+			<?php showRelevantReviews() ?>
+			<h1 class = "text-center mt-5 mb-4"> All Reviews </h1>
 			<table class="table mt-5 mb-5">
 			<thead>
 				<tr>
-					<th>UserID</th>
-					<th>Name</th>
-					<th>Age</th>
-					<th>Location</th>
-					<th>Email</th>
-					<th>Phone</th>
+					<th>Help Seeker</th>
+					<th>Counsellor</th>
+					<th>Session Rating</th>
+					<th>Feedback</th>
 				</tr>
 			</thead>
-			<?php showUsers() ?>
+				<?php showAllReviews() ?>
 			</table>
 		</div>
 	</body>

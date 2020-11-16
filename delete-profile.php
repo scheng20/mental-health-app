@@ -2,67 +2,22 @@
 	
 	include 'connect.php';
 	$conn = OpenCon();
+	session_start();
 
-	// Display information of all users
-	function showUsers() {
-
+	// Check if the delete button is clicked
+	if(isset($_POST['deleteSubmit'])){ 
+		deleteUser();
+	} 
+	
+	// Delete User
+	function deleteUser() {
 		global $conn;  
-		$sql = "SELECT userID, name, age, location, email, phone FROM Users";
-		$result = $conn->query($sql);
-
-		while($row = $result->fetch_assoc()) { 
-			echo "<tr>
-					<td>".$row["userID"]."</td>
-					<td>".$row["name"]."</td>
-					<td>".$row["age"]."</td>
-					<td>".$row["location"]."</td>
-					<td>".$row["email"]."</td>
-					<td>".$row["phone"]."</td>
-				  </tr>";
-		}
+		$sql = "DELETE FROM Users WHERE userID =". $_SESSION['userID'];
+		$conn->query($sql);
+		header("Location: /cpsc304/test.php"); // TEMPORARY LOCATION, REDIRECT TO LOGIN PAGE IN FUTURE
+    	exit;
 	}
 
-	// Find the helpseeker that has booked an appointment with all counsellors
-	function showTopHelpSeeker() {
-		global $conn;
-		$sql = "SELECT name
-				FROM Users U, Helpseeker H
-				WHERE U.userID = H.userID AND
-					NOT EXISTS (
-						(SELECT C.userID
-						 FROM Counsellor C)
-						EXCEPT
-						(SELECT C.userID
-						 FROM Counsellor C, Appointment A 
-						 WHERE C.userID = A.counsellorID AND
-						 	   H.userID = A.helpSeekerID)
-					)";
-
-		$result = $conn->query($sql);
-		$row = $result->fetch_assoc();
-		echo $row["name"];
-	}
-
-	// Find the counsellor that has booked an appointment with all help seekers
-	function showTopCounsellor() {
-		global $conn;
-		$sql = "SELECT name
-				FROM Users U, Counsellor C
-				WHERE U.userID = C.userID AND
-					NOT EXISTS (
-						(SELECT H.userID
-						 FROM HelpSeeker H)
-						EXCEPT
-						(SELECT H.userID
-						 FROM Helpseeker H, Appointment A 
-						 WHERE C.userID = A.counsellorID AND
-						 	   H.userID = A.helpSeekerID)
-					)"; 
-
-		$result = $conn->query($sql);
-		$row = $result->fetch_assoc();
-		echo $row["name"];
-	}
 ?>
 
 <!DOCTYPE html>
@@ -130,7 +85,7 @@
 			          		Directories
 			        	</a>
 				        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-				        	<a class="dropdown-item active" href="/cpsc304/user-directory.php">Users</a>
+				        	<a class="dropdown-item" href="/cpsc304/user-directory.php">Users</a>
 				        	<a class="dropdown-item" href="/cpsc304/hotline-directory.php">Hotlines</a>
 				        	<a class="dropdown-item" href="#">Resource Centers</a>
 				        	<a class="dropdown-item" href="#">Types of Help</a>
@@ -140,27 +95,18 @@
 			    </ul>
 	  		</div>
 		</nav>
-
+		
 		<!-- Page content -->
 		<div class = "container">
-			<h1 class = "text-center mt-5 mb-4"> User Directory </h1>
-
-			<p> Top help seeker (booked an appointment with all counsellors): <?php showTopHelpSeeker() ?></p> 
-			<p> Top counsellor (booked an appointment with all help seekers): <?php showTopCounsellor() ?></p> 
-
-			<table class="table mt-5 mb-5">
-			<thead>
-				<tr>
-					<th>UserID</th>
-					<th>Name</th>
-					<th>Age</th>
-					<th>Location</th>
-					<th>Email</th>
-					<th>Phone</th>
-				</tr>
-			</thead>
-			<?php showUsers() ?>
-			</table>
+			<h1 class = "text-center mt-5 mb-5"> Profile Deletion </h1>
+			<h3 class = "text-center mt-5 mb-5"> ⚠ This is a irreversible action, are you sure you want to proceed? ⚠ </h3>
+			<p class = "text-center"> We are sad to see you leave 😿 </p>
+			<div class = "row justify-content-center mt-5">
+				<form action = '' method='POST'>
+					<button name='deleteSubmit' type='submit' class='btn btn-danger mr-3'>Ya, I'm outta here</button>
+					<a href='/cpsc304/profile.php' class='btn btn-success'>No, take me back to safety</a>
+				</form>
+			</div>
 		</div>
 	</body>
 	<?php CloseCon($conn) ?>

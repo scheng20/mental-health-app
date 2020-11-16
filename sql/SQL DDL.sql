@@ -51,6 +51,11 @@ CREATE TABLE Review (
 	FOREIGN KEY (counsellor) REFERENCES Counsellor(userID) ON DELETE CASCADE
 );
 
+CREATE TABLE TypesOfHelp (
+	helpType		varchar(50)	PRIMARY KEY,
+	description		varchar(100000)
+);
+
 CREATE TABLE Hotline (
 	phoneNum		char(12)        PRIMARY KEY,
 	typeOfHelp		varchar(50)     DEFAULT "General",
@@ -58,22 +63,17 @@ CREATE TABLE Hotline (
 	FOREIGN KEY (typeOfHelp) REFERENCES TypesOfHelp(helpType) ON UPDATE CASCADE ON DELETE SET NULL
 );
 
-CREATE TABLE TypesOfHelp (
-	helpType		varchar(50)	PRIMARY KEY,
-	description		varchar(100000)
-);
-
 CREATE TABLE PostalCode (
-postalCode		char(8) 		   PRIMARY KEY,
-city			varchar(50)        NOT NULL
+  postalCode		char(8) 		   PRIMARY KEY,
+  city			varchar(50)        NOT NULL
 );
 
 CREATE TABLE ResourceCentre (
 	centreID		int				PRIMARY KEY AUTO_INCREMENT,
 	centreName		varchar(125)          NOT NULL,
-address 		varchar(50)           NOT NULL,
-email			varchar(80)		UNIQUE NOT NULL,
-postalCode		char(80)              NOT NULL,
-phoneNum		char(12)              NOT NULL,
-FOREIGN KEY (postalCode) REFERENCES postalCode(postalCode) ON DELETE CASCADE 
+  address 		varchar(50)           NOT NULL,
+  email			varchar(80)		UNIQUE NOT NULL,
+  postalCode		char(80)              NOT NULL,
+  phoneNum		char(12)              NOT NULL,
+  FOREIGN KEY (postalCode) REFERENCES postalCode(postalCode) ON DELETE CASCADE 
 );

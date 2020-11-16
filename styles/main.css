@@ -1,6 +1,5 @@
 nav {
 	background-color: #138441;
-	color: white;
 }
 
 .navbar-brand {
@@ -9,4 +8,13 @@ nav {
 
 .nav-link {
 	color: white !important;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+	background-color: #61bc5c !important;
+}
+
+.img-max {
+  max-width: 200px !important;
+  width:100% !important;
 }

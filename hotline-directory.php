@@ -3,65 +3,20 @@
 	include 'connect.php';
 	$conn = OpenCon();
 
-	// Display information of all users
-	function showUsers() {
+	// Display information of all hotlines
+	function showHotlines() {
 
 		global $conn;  
-		$sql = "SELECT userID, name, age, location, email, phone FROM Users";
+		$sql = "SELECT name, phoneNum, typeOfHelp FROM Hotline";
 		$result = $conn->query($sql);
 
 		while($row = $result->fetch_assoc()) { 
 			echo "<tr>
-					<td>".$row["userID"]."</td>
 					<td>".$row["name"]."</td>
-					<td>".$row["age"]."</td>
-					<td>".$row["location"]."</td>
-					<td>".$row["email"]."</td>
-					<td>".$row["phone"]."</td>
+					<td>".$row["phoneNum"]."</td>
+					<td>".$row["typeOfHelp"]."</td>
 				  </tr>";
 		}
-	}
-
-	// Find the helpseeker that has booked an appointment with all counsellors
-	function showTopHelpSeeker() {
-		global $conn;
-		$sql = "SELECT name
-				FROM Users U, Helpseeker H
-				WHERE U.userID = H.userID AND
-					NOT EXISTS (
-						(SELECT C.userID
-						 FROM Counsellor C)
-						EXCEPT
-						(SELECT C.userID
-						 FROM Counsellor C, Appointment A 
-						 WHERE C.userID = A.counsellorID AND
-						 	   H.userID = A.helpSeekerID)
-					)";
-
-		$result = $conn->query($sql);
-		$row = $result->fetch_assoc();
-		echo $row["name"];
-	}
-
-	// Find the counsellor that has booked an appointment with all help seekers
-	function showTopCounsellor() {
-		global $conn;
-		$sql = "SELECT name
-				FROM Users U, Counsellor C
-				WHERE U.userID = C.userID AND
-					NOT EXISTS (
-						(SELECT H.userID
-						 FROM HelpSeeker H)
-						EXCEPT
-						(SELECT H.userID
-						 FROM Helpseeker H, Appointment A 
-						 WHERE C.userID = A.counsellorID AND
-						 	   H.userID = A.helpSeekerID)
-					)"; 
-
-		$result = $conn->query($sql);
-		$row = $result->fetch_assoc();
-		echo $row["name"];
 	}
 ?>
 
@@ -130,8 +85,8 @@
 			          		Directories
 			        	</a>
 				        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-				        	<a class="dropdown-item active" href="/cpsc304/user-directory.php">Users</a>
-				        	<a class="dropdown-item" href="/cpsc304/hotline-directory.php">Hotlines</a>
+				        	<a class="dropdown-item" href="/cpsc304/user-directory.php">Users</a>
+				        	<a class="dropdown-item active" href="/cpsc304/hotline-directory.php">Hotlines</a>
 				        	<a class="dropdown-item" href="#">Resource Centers</a>
 				        	<a class="dropdown-item" href="#">Types of Help</a>
 				        </div>
@@ -140,26 +95,19 @@
 			    </ul>
 	  		</div>
 		</nav>
-
+		
 		<!-- Page content -->
 		<div class = "container">
-			<h1 class = "text-center mt-5 mb-4"> User Directory </h1>
-
-			<p> Top help seeker (booked an appointment with all counsellors): <?php showTopHelpSeeker() ?></p> 
-			<p> Top counsellor (booked an appointment with all help seekers): <?php showTopCounsellor() ?></p> 
-
+			<h1 class = "text-center mt-5 mb-4"> Hotline Directory </h1>
 			<table class="table mt-5 mb-5">
 			<thead>
 				<tr>
-					<th>UserID</th>
 					<th>Name</th>
-					<th>Age</th>
-					<th>Location</th>
-					<th>Email</th>
-					<th>Phone</th>
+					<th>Phone Number</th>
+					<th>Type of Help</th>
 				</tr>
 			</thead>
-			<?php showUsers() ?>
+			<?php showHotlines() ?>
 			</table>
 		</div>
 	</body>
