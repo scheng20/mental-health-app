@@ -27,14 +27,33 @@
 
 		$result = $conn->query($sql);
 
-		while($row = $result->fetch_assoc()) { 
-			echo "<tr>
-					<td>".$row["name"]."</td>
-					<td>".$row["date"]."</td>
-					<td>".$row["startTime"]."</td>
-					<td>".$row["endTime"]."</td>
-					<td>".$row["meetingPlatform"]."</td>
-				  </tr>";
+		if(mysqli_num_rows($result)==0) {
+
+			echo "<p class = 'text-center'> You have no upcoming appointments! </p>";
+
+		} else {
+			echo "<table class= 'table mt-5 mb-5'>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Date</th>
+							<th>Start Time</th>
+							<th>End Time</th>
+							<th>Platform</th>
+						</tr>
+					</thead>";
+					
+			while($row = $result->fetch_assoc()) { 
+				echo "<tr>
+						<td>".$row["name"]."</td>
+						<td>".$row["date"]."</td>
+						<td>".$row["startTime"]."</td>
+						<td>".$row["endTime"]."</td>
+						<td>".$row["meetingPlatform"]."</td>
+					  </tr>";
+			}
+
+			echo "</table>";
 		}
 	}
 ?>
@@ -118,18 +137,7 @@
 		<!-- Page content -->
 		<div class = "container">
 			<h1 class = "text-center mt-5 mb-4"> All Appointments </h1>
-			<table class="table mt-5 mb-5">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Date</th>
-					<th>Start Time</th>
-					<th>End Time</th>
-					<th>Platform</th>
-				</tr>
-			</thead>
-				<?php showAppointments() ?>
-			</table>
+			<?php showAppointments() ?>
 		</div>
 	</body>
 	<?php CloseCon($conn) ?>

@@ -4,8 +4,8 @@
 	$conn = OpenCon();
 
 	session_start();
-	$_SESSION["userID"] = 15; // HARDCODED USER ID FOR LOCAL TESTING PURPOSES, REMOVE LATER
-
+	$_SESSION["userID"] = 2; // HARDCODED USER ID FOR LOCAL TESTING PURPOSES, REMOVE LATER
+	
 	// Determine if the current user is a counsellor or help seeker
 	// NOTE: This function may need to be refactored to be in the login page instead
 	function setUserType() {
