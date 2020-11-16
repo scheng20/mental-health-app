@@ -43,7 +43,7 @@
 		<div class = "container">
 			<h1 class = "text-center mt-5 mb-5"> Appointment Confirmation </h1>
             <?php displayContents()?>
-            <div> Return to Appointment Booking page <a href="./appointment-booking.php"> here</a></div>
+            <div> Return to Appointment Booking page <a href="./book-appointments.php"> here</a></div>
         </div>
     </body> 
 </html>

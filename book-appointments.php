@@ -29,7 +29,7 @@
 	<body>
 		<div class = "container">
 			<h1 class = "text-center mt-5 mb-5"> Book Appointment </h1>
-			<form action="./add-appointment.php" method="post" >
+			<form action="./add-appointments.php" method="post" >
                 <div class="form-group">
                     <select class="form-control" name="userID" id="userID"> 
                     <?php showCounsellors()?>
