@@ -84,3 +84,26 @@ VALUES
 	('7780938825', 'Suicide', 'Canada Suicide Prevention'),
 	('0984378897', 'General', 'OT General'),
 	('5637829283', 'Suicide', 'Suicide Hotline');
+
+
+INSERT INTO
+	PostalCode (postalCode, city)
+VALUES
+	('V6R2H1', 'Vancouver'),
+	('V7H0K1', 'Vancouver'),
+	('V9P0J1', 'Vancouver'),
+	('M4B1K1', 'Toronto'),
+	('T8M0L1', 'Edmonton');
+
+
+INSERT INTO
+	ResourceCentre (centreID,centreName,address,email,postalCode,phoneNum)
+VALUES
+	('Helping Hands', '1234 Albert Dr', 'hhands@gmail.com', 'V6R2H1', '7789987836'),
+	('Addiction Centre', '45 Garneau St', 'centreaddiction@gmail.com', 'V7H0K1','7786673847'),
+	('Vancouver General', '9012 Vic St', 'vgeneralhos@gmail.com', 'V9P0J1', '7788893748'),
+	('ON Medical', '1 Queens Way', 'onmedical@gmail.com', 'M4B1K1', '6457239182'),
+	('Support Centre', '67 Whyte Ave', 'supportcentrewhyte@gmail.com', 'T8M0L1', '7800998372');
+
+
+
