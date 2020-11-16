@@ -56,6 +56,20 @@ CREATE TABLE TypesOfHelp (
 	description		varchar(10000)
 );
 
+CREATE TABLE PostalCode (
+postalCode		char(8) 		   PRIMARY KEY,
+city			varchar(50)        NOT NULL
+);
+
+CREATE TABLE ResourceCentre (
+	centreID		int				PRIMARY KEY AUTO_INCREMENT,
+	centreName		varchar(125)          NOT NULL,
+address 		varchar(50)           NOT NULL,
+email			varchar(80)		UNIQUE NOT NULL,
+postalCode		char(80)              NOT NULL,
+phoneNum		char(12)              NOT NULL,
+FOREIGN KEY (postalCode) REFERENCES postalCode(postalCode) ON DELETE CASCADE 
+);
 CREATE TABLE Hotline (
 	phoneNum		char(12)        PRIMARY KEY,
 	typeOfHelp		varchar(50)     DEFAULT "General",
