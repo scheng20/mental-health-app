@@ -28,7 +28,7 @@ DELETE FROM Users WHERE userID = $_SESSION['userID'];
 SELECT name, date, startTime, endTime, meetingPlatform
 FROM Users U, Appointment A
 WHERE U.userID = A.counsellorID AND 
-	 A.helpSeekerID = $_SESSION["userID"];
+	  A.helpSeekerID = $_SESSION["userID"];
 
 SELECT name, date, startTime, endTime, meetingPlatform
 FROM Users U, Appointment A
@@ -49,6 +49,24 @@ SELECT name, rating, feedback
 FROM Users U, Review R
 WHERE U.userID = R.reviewAuthor AND
 	  R.counsellor = $_SESSION["userID"];
+
+SELECT level
+FROM Counsellor C, Counselloryearsexperience CY
+WHERE C.yearsExperience = CY.yearsExperience AND 
+	  C.userID = $_SESSION["userID"];
+
+# Aggregation with Group By
+
+# Aggregation with Having
+SELECT AVG(R.rating)
+FROM review R
+GROUP BY R.counsellor
+HAVING R.counsellor = $_SESSION["userID"];
+
+SELECT COUNT(DISTINCT A.helpSeekerID) AS numOfPatients
+FROM Appointment A
+GROUP BY A.counsellorID
+HAVING A.counsellorID = $_SESSION["userID"];
 
 # Division 
 # Find the helpseeker that has booked an appointment with all counsellors
