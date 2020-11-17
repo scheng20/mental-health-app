@@ -108,7 +108,7 @@ VALUES
 
 
 INSERT INTO
-	ResourceCentre (centreID,centreName,address,email,postalCode,phoneNum)
+	ResourceCentre (centreName,address,email,postalCode,phoneNum)
 VALUES
 	('Helping Hands', '1234 Albert Dr', 'hhands@gmail.com', 'V6R2H1', '7789987836'),
 	('Addiction Centre', '45 Garneau St', 'centreaddiction@gmail.com', 'V7H0K1','7786673847'),

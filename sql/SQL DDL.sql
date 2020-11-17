@@ -30,7 +30,7 @@ CREATE TABLE Counsellor (
 );
 
 CREATE TABLE Appointment (
-	appointmentID	int			 PRIMARY KEY,
+	appointmentID	int			 PRIMARY KEY AUTO_INCREMENT,
 	counsellorID	int				NOT NULL,
 	helpSeekerID	int				NOT NULL,
 	meetingPlatform varchar(50)		NOT NULL,
@@ -42,18 +42,18 @@ CREATE TABLE Appointment (
 );
 
 CREATE TABLE Review (
-	reviewID		int			PRIMARY KEY,
+	reviewID		int			PRIMARY KEY AUTO_INCREMENT,
 	reviewAuthor	int			NOT NULL,
 	counsellor 		int			NOT NULL,
 	rating			int			NOT NULL,
-	feedback		varchar(100000),
+	feedback		varchar(10000),
 	FOREIGN KEY (reviewAuthor) REFERENCES HelpSeeker(userID),
 	FOREIGN KEY (counsellor) REFERENCES Counsellor(userID) ON DELETE CASCADE
 );
 
 CREATE TABLE TypesOfHelp (
 	helpType		varchar(50)	PRIMARY KEY,
-	description		varchar(100000)
+	description		varchar(10000)
 );
 
 CREATE TABLE PostalCode (
