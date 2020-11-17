@@ -30,8 +30,8 @@ CREATE TABLE Counsellor (
 );
 
 CREATE TABLE Appointment (
-	appointmentID	int				PRIMARY KEY AUTO_INCREMENT,
-	counsellorID	int				NOT NULL,
+	appointmentID	int			 PRIMARY KEY AUTO_INCREMENT,
+        counsellorID	int				NOT NULL,
 	helpSeekerID	int				NOT NULL,
 	meetingPlatform varchar(50),
 	date			date,
