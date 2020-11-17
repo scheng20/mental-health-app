@@ -68,6 +68,15 @@ FROM Appointment A
 GROUP BY A.counsellorID
 HAVING A.counsellorID = $_SESSION["userID"];
 
+# Nested Aggregation with Group By
+SELECT U.name, AVG(rating)
+FROM Review R, Users U
+WHERE R.counsellor = U.userID
+GROUP BY U.name
+HAVING AVG(rating) >= ALL (SELECT AVG(rating)
+			   			   FROM Review R2
+			   			   GROUP BY R2.counsellor);
+
 # Division 
 # Find the helpseeker that has booked an appointment with all counsellors
 SELECT name
