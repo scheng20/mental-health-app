@@ -4,8 +4,9 @@
 	$conn = OpenCon();
 
 	session_start();
-	$_SESSION["userID"] = 2; // HARDCODED USER ID FOR LOCAL TESTING PURPOSES, REMOVE LATER
-	
+
+	//$_SESSION["userID"] = 1; // HARDCODED USER ID FOR LOCAL TESTING PURPOSES, REMOVE LATER
+		
 	// Determine if the current user is a counsellor or help seeker
 	// NOTE: This function may need to be refactored to be in the login page instead
 	function setUserType() {
@@ -282,7 +283,7 @@
 				        	<a class="dropdown-item" href="/cpsc304/user-directory.php">Users</a>
 				        	<a class="dropdown-item" href="/cpsc304/hotline-directory.php">Hotlines</a>
 				        	<a class="dropdown-item" href="/cpsc304/resource-centre-directory.php">Resource Centers</a>
-				        	<a class="dropdown-item" href="#">Types of Help</a>
+				        	<a class="dropdown-item" href="/cpsc304/types-of-help-directory.php">Types of Help</a>
 				        </div>
 			      	</li>
 			      	

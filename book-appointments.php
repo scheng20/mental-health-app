@@ -7,7 +7,7 @@
 	function showCounsellors() {
 
 		global $conn;  
-		$sql = "SELECT * FROM Counsellor";
+		$sql = "SELECT userID, name FROM Counsellor";
 		$result = $conn->query($sql);
 
 		while($row = $result->fetch_assoc()) {
@@ -104,24 +104,25 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="platform">What platform?</label>
+                    <label for="platform">Set a platform: </label>
                     <input name="platform" id="platform" required></input>
                 </div>
-
-                <div class="form-group col-md-5">
+				<div style="padding-bottom:1%" class="form-row">
+                <div class="form-group col-md-3">
                     <label for="date" id="date">Choose a date: </label>
                     <input type="date" name="date" required></input>
                 </div>
 
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-2">
                     <label for="startTime" id="startTime">Start Time: </label>
                     <input type="time" name="startTime" required></input>
                 </div>
 
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-2">
                     <label for="endTime" id="endTime">End Time: </label>
                     <input type="time" name="endTime" required></input>
-                </div>
+				</div>
+			</div>
 
                 <button class="btn btn-success" type="submit" value="submit">Sign up </button>
             </form>
