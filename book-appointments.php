@@ -7,7 +7,7 @@
 	function showCounsellors() {
 
 		global $conn;  
-		$sql = "SELECT userID, name FROM Counsellor";
+		$sql = "SELECT * FROM Counsellor";
 		$result = $conn->query($sql);
 
 		while($row = $result->fetch_assoc()) {
@@ -85,7 +85,7 @@
 				        	<a class="dropdown-item" href="/cpsc304/user-directory.php">Users</a>
 				        	<a class="dropdown-item" href="/cpsc304/hotline-directory.php">Hotlines</a>
 				        	<a class="dropdown-item" href="/cpsc304/resource-centre-directory.php">Resource Centers</a>
-				        	<a class="dropdown-item" href="#">Types of Help</a>
+				        	<a class="dropdown-item" href="/cpsc304/types-of-help-directory.php">Types of Help</a>
 				        </div>
 			      	</li>
 			      	
@@ -104,25 +104,24 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="platform">Set a platform: </label>
+                    <label for="platform">What platform?</label>
                     <input name="platform" id="platform" required></input>
                 </div>
-				<div style="padding-bottom:1%" class="form-row">
-                <div class="form-group col-md-3">
+
+                <div class="form-group col-md-5">
                     <label for="date" id="date">Choose a date: </label>
                     <input type="date" name="date" required></input>
                 </div>
 
-                <div class="form-group col-md-2">
+                <div class="form-group col-md-3">
                     <label for="startTime" id="startTime">Start Time: </label>
                     <input type="time" name="startTime" required></input>
                 </div>
 
-                <div class="form-group col-md-2">
+                <div class="form-group col-md-3">
                     <label for="endTime" id="endTime">End Time: </label>
                     <input type="time" name="endTime" required></input>
-				</div>
-			</div>
+                </div>
 
                 <button class="btn btn-success" type="submit" value="submit">Sign up </button>
             </form>
