@@ -35,7 +35,6 @@
 	</head>
 
 	<body>
-
 		<!-- Navbar -->
 		<nav class="navbar navbar-expand-lg navbar-dark">
 			<a class="navbar-brand" href="#">Mental Health Webapp</a>
