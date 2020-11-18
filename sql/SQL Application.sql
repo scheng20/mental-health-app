@@ -55,6 +55,26 @@ FROM Counsellor C, Counselloryearsexperience CY
 WHERE C.yearsExperience = CY.yearsExperience AND 
 	  C.userID = $_SESSION["userID"];
 
+SELECT RC.centreName, RC.address, RC.email, RC.phoneNum
+FROM ResourceCentre RC, FavouriteCentre FC
+WHERE RC.centreID = FC.centreID AND 
+	  FC.helpSeekerID = $_SESSION["userID"];
+
+SELECT RC.centreName, RC.address, RC.email, RC.phoneNum
+FROM ResourceCentre RC, RecommendedCentre REC
+WHERE RC.centreID = REC.centreID AND 
+	  REC.counsellorID = $_SESSION["userID"];
+
+SELECT HL.name, HL.phoneNum, HL.typeOfHelp
+FROM Hotline HL, FavouriteHotline FH
+WHERE HL.phoneNum = FH.hotlineNum AND
+	  FH.helpSeekerID = $_SESSION["userID"];
+
+SELECT HL.name, HL.phoneNum, HL.typeOfHelp
+FROM Hotline HL, RecommendedHotline RH
+WHERE HL.phoneNum = RH.hotlineNum AND
+	  RH.counsellorID = $_SESSION["userID"];
+
 # Aggregation with Group By
 
 # Aggregation with Having

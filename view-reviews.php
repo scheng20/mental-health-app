@@ -4,14 +4,6 @@
 	$conn = OpenCon();
 	session_start();
 
-	// HelpSeeker
-	// Written Reviews
-	// All Reviews
-
-	// Counsellor
-	// Recieved Reviews
-	// All Reviews
-
 	// For a helpseeker, show the reviews they've written
 	function showWrittenReviews() {
 		global $conn;

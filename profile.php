@@ -4,13 +4,12 @@
 	$conn = OpenCon();
 
 	session_start();
-	$_SESSION["userID"] = 1; // HARDCODED USER ID FOR LOCAL TESTING PURPOSES, REMOVE LATER
+	$_SESSION["userID"] = 2; // HARDCODED USER ID FOR LOCAL TESTING PURPOSES, REMOVE LATER
 	
 	// Determine if the current user is a counsellor or help seeker
 	// NOTE: This function may need to be refactored to be in the login page instead
 	function setUserType() {
 		global $conn;
-		global $userType;
 
 		$sql = "SELECT COUNT(1)
 				FROM helpSeeker
@@ -107,52 +106,109 @@
 	// Display the hotlines related to the user
 	function showHotlines() {
 
+		global $conn;
+		$sql = "";
+
 		if($_SESSION["userType"] == "helpSeeker") {
 			echo "<p><b> Favourite Hotlines </b></p>";
+
+			$sql = "SELECT HL.name, HL.phoneNum, HL.typeOfHelp
+					FROM Hotline HL, FavouriteHotline FH
+					WHERE HL.phoneNum = FH.hotlineNum AND
+	  					  FH.helpSeekerID =".$_SESSION["userID"];
+
 		} else {
 			echo "<p><b> Recommended Hotlines </b></p>";
+
+			$sql = "SELECT HL.name, HL.phoneNum, HL.typeOfHelp
+					FROM Hotline HL, RecommendedHotline RH
+					WHERE HL.phoneNum = RH.hotlineNum AND
+	  					  RH.counsellorID =".$_SESSION["userID"];
 		}
 
-		echo "<table class='table mb-5 mr-3'>
+	 	$result = $conn->query($sql);
+
+	 	if(mysqli_num_rows($result)==0) {
+
+	 		echo "You have no saved hotlines!";
+
+	 	} else {
+
+	 		echo "<table class='table mb-5 mr-3'>
 				<thead>
 					<tr>
 						<th>Name</th>
-						<th>Phone Number</th>
+						<th>Phone #</th>
 						<th>Type of Help</th>
 					</tr>
-				</thead>
-	 		";
+				</thead>";
 
-	 	// TODO
+	 		while($row = $result->fetch_assoc()) { 
+				echo "<tr>
+						<td>".$row["name"]."</td>
+						<td>".$row["phoneNum"]."</td>
+						<td>".$row["typeOfHelp"]."</td>
+					  </tr>";
+			}
 
-		echo "</table>";
+			echo "</table>";
+	 	}
 		
 	}
 
 	// Display the resource centres related to the user
 	function showCentres() {
-		global $userType;
+		global $conn;
+
+		$sql = "";
 
 		if($_SESSION["userType"] == "helpSeeker") {
 			echo "<p><b> Favourite Centres </b></p>";
+
+			$sql = "SELECT RC.centreName, RC.address, RC.email, RC.phoneNum
+					FROM ResourceCentre RC, FavouriteCentre FC
+					WHERE RC.centreID = FC.centreID AND 
+	  					  FC.helpSeekerID =".$_SESSION["userID"];
 		} else {
 			echo "<p><b> Recommended Centres </b></p>";
+
+			$sql = "SELECT RC.centreName, RC.address, RC.email, RC.phoneNum
+					FROM ResourceCentre RC, RecommendedCentre REC
+					WHERE RC.centreID = REC.centreID AND 
+	  					  REC.counsellorID =".$_SESSION["userID"];
 		}
 
-		echo "<table class='table mb-5 mr-3'>
+		$result = $conn->query($sql);
+
+		if(mysqli_num_rows($result)==0) {
+
+	 		echo "You have no saved resource centres!";
+
+	 	} else {
+
+	 		echo "<table class='table mb-5 mr-3'>
 				<thead>
 					<tr>
 						<th>Center Name</th>
 						<th>Address</th>
 						<th>Email</th>
-						<th>Phone Number</th>
+						<th>Phone #</th>
 					</tr>
 				</thead>
 			 ";
 
-		// TODO
+	 		while($row = $result->fetch_assoc()) { 
+				echo "<tr>
+						<td>".$row["centreName"]."</td>
+						<td>".$row["address"]."</td>
+						<td>".$row["email"]."</td>
+						<td>".$row["phoneNum"]."</td>
+					  </tr>";
+			}
 
-		echo "</table>";
+			echo "</table>";
+
+	 	}		
 
 	}
 
@@ -204,7 +260,7 @@
 			        	</a>
 			        	<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 			          		<a class="dropdown-item" href="/cpsc304/view-reviews.php">View Reviews</a>
-			          		<a class="dropdown-item" href="#">Write a Review</a>
+			          		<a class="dropdown-item" href="/cpsc304/book-appointments.php">Write a Review</a>
 			        	</div>
 			      	</li>
 
