@@ -14,7 +14,7 @@
 		global $conn;  
 		$sql = "DELETE FROM Users WHERE userID =". $_SESSION['userID'];
 		$conn->query($sql);
-		header("Location: /cpsc304/test.php"); // TEMPORARY LOCATION, REDIRECT TO LOGIN PAGE IN FUTURE
+		header("Location: /cpsc304/login.html"); 
     	exit;
 	}
 

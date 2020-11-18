@@ -12,8 +12,8 @@
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </head>
 
-<body>
-    <div class = "container">
+<body style="background-color: #138441">
+    <div class = "container text-white">
     <h1 class = "text-center mt-5 mb-5"> Thanks for joining us! Please fill out the following information</h1>
     <form action="" method="post" >
         <div class="form-group">
@@ -77,10 +77,10 @@
             </div>
         </div>
 
-        <button class="btn btn-primary" type="submit" value="submit">Sign up </button>
+        <button class="btn btn-light" type="submit" value="submit">Sign up </button>
     </form>
 
-    <div style="margin-top:1%" class="alert alert-primary" id="login-link">Already have an account? Login <a href="./index.php">here</a></p>
+    <div class="alert alert-info mt-3" id="login-link">Already have an account? Login <a href="./login.html">here</a></p>
 </div>
 </body>
 </html>
@@ -147,6 +147,8 @@
             if (!$result) {
                 returnError();
                 return;
+            } else {
+                header("Location: /cpsc304/profile.php"); 
             }
         }
     }
