@@ -1,11 +1,7 @@
-# Projection
-SELECT userID, name, age, location, email, phone FROM Users;
-SELECT name, phoneNum, typeOfHelp FROM Hotline;
+# Insert
 
-# Selection
-SELECT yearsExperience, certification, numPatients
-FROM counsellor
-WHERE userID = $_SESSION["userID"];
+# Delete
+DELETE FROM Users WHERE userID = $_SESSION['userID'];
 
 # Update
 UPDATE Users 
@@ -21,8 +17,14 @@ SET yearsExperience = '$experience',
 	certification = '$certification'
 WHERE userID =.$_SESSION["userID"];
 
-# Delete
-DELETE FROM Users WHERE userID = $_SESSION['userID'];
+# Selection
+SELECT yearsExperience, certification, numPatients
+FROM counsellor
+WHERE userID = $_SESSION["userID"];
+
+# Projection
+SELECT userID, name, age, location, email, phone FROM Users;
+SELECT name, phoneNum, typeOfHelp FROM Hotline;
 
 # Join
 SELECT name, date, startTime, endTime, meetingPlatform
@@ -55,7 +57,31 @@ FROM Counsellor C, Counselloryearsexperience CY
 WHERE C.yearsExperience = CY.yearsExperience AND 
 	  C.userID = $_SESSION["userID"];
 
+SELECT RC.centreName, RC.address, RC.email, RC.phoneNum
+FROM ResourceCentre RC, FavouriteCentre FC
+WHERE RC.centreID = FC.centreID AND 
+	  FC.helpSeekerID = $_SESSION["userID"];
+
+SELECT RC.centreName, RC.address, RC.email, RC.phoneNum
+FROM ResourceCentre RC, RecommendedCentre REC
+WHERE RC.centreID = REC.centreID AND 
+	  REC.counsellorID = $_SESSION["userID"];
+
+SELECT HL.name, HL.phoneNum, HL.typeOfHelp
+FROM Hotline HL, FavouriteHotline FH
+WHERE HL.phoneNum = FH.hotlineNum AND
+	  FH.helpSeekerID = $_SESSION["userID"];
+
+SELECT HL.name, HL.phoneNum, HL.typeOfHelp
+FROM Hotline HL, RecommendedHotline RH
+WHERE HL.phoneNum = RH.hotlineNum AND
+	  RH.counsellorID = $_SESSION["userID"];
+
 # Aggregation with Group By
+SELECT U.name, AVG(R.rating) AS avgRating
+FROM Review R, Users U
+WHERE U.userID = R.counsellor
+GROUP BY U.name;
 
 # Aggregation with Having
 SELECT AVG(R.rating)
@@ -78,7 +104,6 @@ HAVING AVG(rating) >= ALL (SELECT AVG(rating)
 			   			   GROUP BY R2.counsellor);
 
 # Division 
-# Find the helpseeker that has booked an appointment with all counsellors
 SELECT name
 FROM Users U, Helpseeker H
 WHERE U.userID = H.userID AND
@@ -92,7 +117,6 @@ WHERE U.userID = H.userID AND
 		 	   H.userID = A.helpSeekerID)
 	);
 
-# Find the counsellor that has booked an appointment with all help seekers
 SELECT name
 FROM Users U, Counsellor C
 WHERE U.userID = C.userID AND

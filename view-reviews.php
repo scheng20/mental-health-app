@@ -4,14 +4,6 @@
 	$conn = OpenCon();
 	session_start();
 
-	// HelpSeeker
-	// Written Reviews
-	// All Reviews
-
-	// Counsellor
-	// Recieved Reviews
-	// All Reviews
-
 	// For a helpseeker, show the reviews they've written
 	function showWrittenReviews() {
 		global $conn;
@@ -118,6 +110,24 @@
 				  </tr>";
 		}
 	}
+
+	// Show the average rating for each counsellor
+	function showAverageRatings() {
+		global $conn;
+		$sql = "SELECT U.name, AVG(R.rating) AS avgRating
+				FROM Review R, Users U
+				WHERE U.userID = R.counsellor
+				GROUP BY U.name";
+
+		$result = $conn->query($sql);
+
+		while($row = $result->fetch_assoc()) { 
+			echo "<tr>
+					<td>".$row["name"]."</td>
+					<td>".$row["avgRating"]."</td>
+				  </tr>";
+		}
+	}
 ?>
 
 <!DOCTYPE html>
@@ -210,6 +220,17 @@
 				</tr>
 			</thead>
 				<?php showAllReviews() ?>
+			</table>
+
+			<h1 class = "text-center mt-5 mb-4"> Average Ratings </h1>
+			<table class="table mt-5 mb-5">
+			<thead>
+				<tr>
+					<th>Counsellor Name</th>
+					<th>Average Rating</th>
+				</tr>
+			</thead>
+				<?php showAverageRatings() ?>
 			</table>
 		</div>
 	</body>
