@@ -151,3 +151,20 @@ VALUES
 	(3,'7786675362'),
 	(5,'0984378897');
 
+INSERT INTO 
+	BlogPost (postAuthor, date, content, likes)
+VALUES
+	(12, '2019-01-20', 'Thanks everyone for following my blog! Really appreciate all the support on this website.', 100),
+	(11, '2020-01-01', 'Happy new year! :)', 90),
+	(15, '2020-09-05', 'Hope everyone is staying safe and doing well!', 87),
+	(9, '2018-07-10', 'First post on here!', 1),
+	(7, '2020-05-19', 'not feeling too great these days :( but i’m glad i have this community', 671);
+
+INSERT INTO 
+	Belongs (postID, content)
+VALUES
+	(2, 'That’s great!'),
+	(4, 'thanks'),
+	(3, 'Glad you’re feeling better'),
+	(5, ':)'),
+	(1, 'good advice!')

@@ -17,8 +17,8 @@
     <h1 class = "text-center mt-5 mb-5">Welcome to the Mental Health Webapp!</h1>
     <h3 class = "text-center mt-5 mb-5">Login</h3>
 
-    <form action='./login.php' method='post'>
-
+    <form action='' method='post'>
+        
         <div class="form-group">
         <label for="email" id="email">Email:</input>
         <input type='email' class="form-control" id='email' name='email' pattern=".+@.+" required>
@@ -38,3 +38,32 @@
 </div>
 </body>
 </html>
+
+<?php
+    include './connect.php';
+    session_start(); // will not expire until user closes the browser
+
+    $conn = OpenCon();
+    if (isset($_POST['password']) && isset($_POST['email'])) {
+        loginSuccess();
+    }
+
+    function loginSuccess() {
+        global $conn;
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        $sql = "select userID from Users where email='$email' and password='$password'";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $_SESSION['userID'] = $row['userID'];
+            header('Location: profile.php');
+            die();
+        } else {
+            echo "<div class='alert alert-primary'>Cannot login. Try Again.</div>";
+        }
+    }
+    
+?>
+

@@ -123,3 +123,22 @@ CREATE TABLE RecommendedHotline (
 	FOREIGN KEY (counsellorID) REFERENCES Counsellor(userID) ON DELETE CASCADE,
 	FOREIGN KEY (hotlineNum) REFERENCES Hotline(phoneNum) ON DELETE CASCADE
 );
+
+CREATE TABLE BlogPost (
+	postID			int             PRIMARY KEY AUTO_INCREMENT,
+	postAuthor		int             NOT NULL,
+	date			date            NOT NULL,
+	content			varchar(10000) 	NOT NULL,
+	likes			int,
+	FOREIGN KEY (postAuthor) REFERENCES Users(userID) ON DELETE
+      CASCADE
+);
+
+CREATE TABLE Belongs (
+	commentID        int AUTO_INCREMENT,
+	postID           int,
+	content          varchar(256)    NOT NULL,
+	PRIMARY KEY (commentID, postID),
+	FOREIGN KEY (postID) REFERENCES BlogPost(postID) ON DELETE
+      CASCADE
+);

@@ -90,7 +90,7 @@
 				        	<a class="dropdown-item active" href="/cpsc304/user-directory.php">Users</a>
 				        	<a class="dropdown-item" href="/cpsc304/hotline-directory.php">Hotlines</a>
 				        	<a class="dropdown-item" href="/cpsc304/resource-centre-directory.php">Resource Centers</a>
-				        	<a class="dropdown-item" href="#">Types of Help</a>
+				        	<a class="dropdown-item" href="/cpsc304/types-of-help-directory.php">Types of Help</a>
 				        </div>
 			      	</li>
 			      	
