@@ -123,7 +123,7 @@
                     <input type="time" name="endTime" required></input>
                 </div>
 
-                <button class="btn btn-primary" type="submit" value="submit">Sign up </button>
+                <button class="btn btn-success" type="submit" value="submit">Sign up </button>
             </form>
 
 		</div>
