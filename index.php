@@ -1,5 +1,6 @@
 <!DOCTYPE html> 
 <html>
+    <!--First page when entering-->
 <head>
     <!-- Bootstrap Stylesheet -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
@@ -46,6 +47,9 @@
     $conn = OpenCon();
     if (isset($_POST['password']) && isset($_POST['email'])) {
         loginSuccess();
+    } else if (isset($_SESSION["userID"])) {
+        header('Location: profile.php');
+        die();
     }
 
     function loginSuccess() {
