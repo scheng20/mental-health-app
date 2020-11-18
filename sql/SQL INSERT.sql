@@ -40,43 +40,44 @@ VALUES
 	(25, 'platinum');
 
 INSERT INTO
-	Counsellor(userID, yearsExperience, certification, numPatients)
+	Counsellor(userID, yearsExperience, certification)
 VALUES
-	(1, 10, 'certified',1),
-	(2, 15, 'certified',3),
-	(3, 10, 'certified',1),
-	(4, 25, 'certified',3),
-	(5, 5, 'in progress', 1),
-	(6, 10, 'certified', 1);
+	(1, 10, 'certified'),
+	(2, 15, 'certified'),
+	(3, 10, 'certified'),
+	(4, 25, 'certified'),
+	(5, 5, 'in progress'),
+	(6, 10, 'certified');
 
 INSERT INTO
-	Appointment (appointmentID, counsellorID, helpSeekerID, meetingPlatform, date, startTime, endTime)
+	Appointment (counsellorID, helpSeekerID, meetingPlatform, date, startTime, endTime)
 VALUES
-	(1, 1, 7, 'Zoom', '2020-01-10', '11:00', '11:30'),
-	(2, 2, 9, 'Zoom', '2020-10-29', '15:30', '16:00'),
-	(3, 2, 11, 'Zoom', '2020-11-06', '10:00', '11:00'),
-	(4, 4, 12, 'Zoom', '2020-11-21', '10:15', '11:00'),
-	(5, 4, 15, 'Hangouts', '2020-12-01', '12:00', '12:45'),
-	(6, 2, 7, 'Skype', '2020-12-15', '11:15', '12:00'),
-	(7, 3, 7, 'Skype', '2020-12-16', '11:15', '12:00'),
-	(8, 4, 7, 'Skype', '2020-12-17', '11:15', '12:00'),
-	(9, 5, 7, 'Skype', '2020-12-18', '11:15', '12:00'),
-	(10, 6, 7, 'Skype', '2020-12-19', '11:15', '12:00'),
-	(11, 2, 12, 'Hangouts', '2020-12-20', '13:15', '14:00'),
-	(12, 2, 8, 'Hangouts', '2020-12-21', '13:15', '14:00'),
-	(13, 2, 15, 'Hangouts', '2020-12-22', '13:15', '14:00'),
-	(14, 2, 10, 'Hangouts', '2020-12-23', '13:15', '14:00'),
-	(15, 2, 13, 'Hangouts', '2020-12-24', '13:15', '14:00'),
-	(16, 2, 14, 'Hangouts', '2020-12-25', '13:15', '14:00');
+	(1, 7, 'Zoom', '2020-01-10', '11:00', '11:30'),
+	(2, 9, 'Zoom', '2020-10-29', '15:30', '16:00'),
+	(2, 11, 'Zoom', '2020-11-06', '10:00', '11:00'),
+	(4, 12, 'Zoom', '2020-11-21', '10:15', '11:00'),
+	(4, 15, 'Hangouts', '2020-12-01', '12:00', '12:45'),
+	(2, 7, 'Skype', '2020-12-15', '11:15', '12:00'),
+	(3, 7, 'Skype', '2020-12-16', '11:15', '12:00'),
+	(4, 7, 'Skype', '2020-12-17', '11:15', '12:00'),
+	(5, 7, 'Skype', '2020-12-18', '11:15', '12:00'),
+	(6, 7, 'Skype', '2020-12-19', '11:15', '12:00'),
+	(2, 12, 'Hangouts', '2020-12-20', '13:15', '14:00'),
+	(2, 8, 'Hangouts', '2020-12-21', '13:15', '14:00'),
+	(2, 15, 'Hangouts', '2020-12-22', '13:15', '14:00'),
+	(2, 10, 'Hangouts', '2020-12-23', '13:15', '14:00'),
+	(2, 13, 'Hangouts', '2020-12-24', '13:15', '14:00'),
+	(2, 14, 'Hangouts', '2020-12-25', '13:15', '14:00');
 
 INSERT INTO
-	Review (reviewID, reviewAuthor, counsellor, rating, feedback)
+	Review (reviewAuthor, counsellor, rating, feedback)
 VALUES
-	(1, 7, 1, 4, 'Great counsellor'),
-	(2, 9, 2, 3, "Was good but didn't have many open slots"),
-	(3, 11, 2, 4, NULL),
-	(4, 12, 4, 3, NULL),
-	(5, 15, 4, 5, "nice!");
+	(7, 1, 4, 'Great counsellor'),
+	(9, 2, 3, "Was good but didn't have many open slots"),
+	(11, 2, 4, NULL),
+	(12, 4, 3, NULL),
+	(15, 4, 5, "nice!"),
+	(10, 1, 5, "Amazing help");
 
 INSERT INTO
 	TypesOfHelp (helpType, description)
@@ -96,7 +97,6 @@ VALUES
 	('0984378897', 'General', 'OT General'),
 	('5637829283', 'Suicide', 'Suicide Hotline');
 
-
 INSERT INTO
 	PostalCode (postalCode, city)
 VALUES
@@ -105,7 +105,6 @@ VALUES
 	('V9P0J1', 'Vancouver'),
 	('M4B1K1', 'Toronto'),
 	('T8M0L1', 'Edmonton');
-
 
 INSERT INTO
 	ResourceCentre (centreName,address,email,postalCode,phoneNum)
@@ -116,5 +115,39 @@ VALUES
 	('ON Medical', '1 Queens Way', 'onmedical@gmail.com', 'M4B1K1', '6457239182'),
 	('Support Centre', '67 Whyte Ave', 'supportcentrewhyte@gmail.com', 'T8M0L1', '7800998372');
 
+INSERT INTO
+	FavouriteCentre (helpSeekerID, centreID)
+VALUES
+	(7,1),
+	(9,2),
+	(11,3),
+	(12,4),
+	(15,5);
 
+INSERT INTO
+	FavouriteHotline (helpSeekerID, hotlineNum)
+VALUES
+	(7,'7789900098'),
+	(9,'7789900098'),
+	(11,'7786675362'),
+	(12,'5637829283'),
+	(15,'0984378897');
+
+INSERT INTO
+	RecommendedCentre (counsellorID, centreID)
+VALUES
+	(1,1),
+	(2,2),
+	(2,3),
+	(4,4),
+	(4,5);
+
+INSERT INTO
+	RecommendedHotline (counsellorID, hotlineNum)
+VALUES
+	(1,'7780938825'),
+	(1,'7789900098'),
+	(3,'7789900098'),
+	(3,'7786675362'),
+	(5,'0984378897');
 

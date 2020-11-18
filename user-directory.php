@@ -23,7 +23,7 @@
 	}
 
 	// Find the helpseeker that has booked an appointment with all counsellors
-	function showTopHelpSeeker() {
+	function showActiveHelpSeeker() {
 		global $conn;
 		$sql = "SELECT name
 				FROM Users U, Helpseeker H
@@ -44,7 +44,7 @@
 	}
 
 	// Find the counsellor that has booked an appointment with all help seekers
-	function showTopCounsellor() {
+	function showActiveCounsellor() {
 		global $conn;
 		$sql = "SELECT name
 				FROM Users U, Counsellor C
@@ -63,6 +63,23 @@
 		$row = $result->fetch_assoc();
 		echo $row["name"];
 	}
+
+	// Find the counsellor that has the highest rating throughout the platform
+	function showTopCounsellor() {
+		global $conn;
+		$sql = "SELECT U.name, AVG(rating)
+				FROM Review R, Users U
+				WHERE R.counsellor = U.userID
+				GROUP BY U.name
+				HAVING AVG(rating) >= ALL (SELECT AVG(rating)
+			   			   				   FROM Review R2
+			   			   				   GROUP BY R2.counsellor)"; 
+
+		$result = $conn->query($sql);
+		$row = $result->fetch_assoc();
+		echo $row["name"];
+	}
+	
 ?>
 
 <!DOCTYPE html>
@@ -145,8 +162,17 @@
 		<div class = "container">
 			<h1 class = "text-center mt-5 mb-4"> User Directory </h1>
 
-			<p> Top help seeker (booked an appointment with all counsellors): <?php showTopHelpSeeker() ?></p> 
-			<p> Top counsellor (booked an appointment with all help seekers): <?php showTopCounsellor() ?></p> 
+			<div class="alert alert-success" role="alert">
+			  <b>Top Rated Counsellor</b> (highest average rating): <b><?php showTopCounsellor() ?></b>
+			</div>
+
+			<div class="alert alert-info" role="alert">
+			  <b>Most Active HelpSeeker</b> (booked an appointment with all counsellors): <b><?php showActiveHelpSeeker() ?></b>
+			</div>
+
+			<div class="alert alert-info" role="alert">
+			  <b>Most Active Counsellor </b> (booked an appointment with help seekers): <b><?php showActiveCounsellor() ?></b>
+			</div>
 
 			<table class="table mt-5 mb-5">
 			<thead>

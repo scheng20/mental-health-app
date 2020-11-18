@@ -4,7 +4,7 @@
 	$conn = OpenCon();
 
 	session_start();
-	$_SESSION["userID"] = 2; // HARDCODED USER ID FOR LOCAL TESTING PURPOSES, REMOVE LATER
+	$_SESSION["userID"] = 1; // HARDCODED USER ID FOR LOCAL TESTING PURPOSES, REMOVE LATER
 	
 	// Determine if the current user is a counsellor or help seeker
 	// NOTE: This function may need to be refactored to be in the login page instead
@@ -57,6 +57,8 @@
 	function showCounsellorDetails() {
 
 		global $conn;
+
+		// Fetch yearsOfExperience, certification 
 		$sql = "SELECT yearsExperience, certification, numPatients 
 				FROM counsellor
 				WHERE userID =".$_SESSION['userID'];
@@ -64,8 +66,41 @@
 		$row = $result->fetch_assoc();
 
 		echo "<p><b>Years of Experience: </b>".$row["yearsExperience"]."</p>
-			  <p><b>Certification: </b>".$row["certification"]."</p>
-			  <p><b>Number of people helped: </b>".$row["numPatients"]."</p>";
+			  <p><b>Certification: </b>".$row["certification"]."</p>";
+		
+		// Fetch the average rating for a counsellor
+		$sql = "SELECT AVG(R.rating) AS AvgRating
+				FROM review R
+				GROUP BY R.counsellor
+				HAVING R.counsellor =".$_SESSION["userID"];
+		$result = $conn->query($sql);
+		$row = $result->fetch_assoc();
+
+		if (mysqli_num_rows($result)==0) {
+			echo "<p><b>Average Rating: </b> No Ratings Yet </p>";
+		} else {
+			echo "<p><b>Average Rating: </b>".$row["AvgRating"]."</p>";
+		}
+
+		// Fetch the number of patients based on number of unique helpSeekers
+		$sql = "SELECT COUNT(DISTINCT A.helpSeekerID) AS numOfPatients
+				FROM Appointment A
+				GROUP BY A.counsellorID
+				HAVING A.counsellorID =".$_SESSION["userID"];
+		$result = $conn->query($sql);
+		$row = $result->fetch_assoc();
+
+		echo "<p><b>Number of Patients: </b>".$row["numOfPatients"]."</p>";
+
+		// Fetch the counsellor's level based on their yearsOfExperience
+		$sql = "SELECT level
+				FROM Counsellor C, Counselloryearsexperience CY
+				WHERE C.yearsExperience = CY.yearsExperience AND 
+	  				  C.userID =".$_SESSION["userID"];
+	  	$result = $conn->query($sql);
+		$row = $result->fetch_assoc();
+
+		echo "<p><b>Level: </b>".$row["level"]."</p>";
 
 	}
 
@@ -209,7 +244,8 @@
 				</div>
 				<div class ="col">
 					<?php showBasicInfo() ?>
-					
+					<a href="/cpsc304/edit-profile.php" class="btn btn-success mr-2">Edit Profile</a>
+					<a href="/cpsc304/delete-profile.php" class="btn btn-danger">Delete Account</a>
 				</div>
 				<div class = "col">
 					<?php 
@@ -217,8 +253,6 @@
 							showCounsellorDetails();
 						}
 					?>
-					<a href="/cpsc304/edit-profile.php" class="btn btn-success mr-3">Edit Profile</a>
-					<a href="/cpsc304/delete-profile.php" class="btn btn-danger">Delete Account</a>
 				</div>
 			</div>
 			<div class = "row mt-5">
