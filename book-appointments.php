@@ -53,7 +53,7 @@
 			        	</a>
 				        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 				        	<a class="dropdown-item" href="/cpsc304/view-appointments.php">View Appointments</a>
-				        	<a class="dropdown-item" href="/cpsc304/book-appointments.php">Book an Appointment</a>
+				        	<a class="dropdown-item active" href="/cpsc304/book-appointments.php">Book an Appointment</a>
 				        </div>
 			      	</li>
 
@@ -82,7 +82,7 @@
 			          		Directories
 			        	</a>
 				        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-				        	<a class="dropdown-item active" href="/cpsc304/user-directory.php">Users</a>
+				        	<a class="dropdown-item" href="/cpsc304/user-directory.php">Users</a>
 				        	<a class="dropdown-item" href="/cpsc304/hotline-directory.php">Hotlines</a>
 				        	<a class="dropdown-item" href="/cpsc304/resource-centre-directory.php">Resource Centers</a>
 				        	<a class="dropdown-item" href="#">Types of Help</a>
