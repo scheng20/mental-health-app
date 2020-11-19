@@ -2,84 +2,31 @@
 	
 	include 'connect.php';
 	$conn = OpenCon();
-
-	// Display information of all users
-	function showUsers() {
-
+	
+	// Returns basic information of a user
+	function showInfo() {
+		
 		global $conn;  
-		$sql = "SELECT userID, name, age, location, email, phone FROM Users";
+
+		$searchID = $_POST['searchUserID'];
+
+		$sql = "SELECT name, age, location, email, phone FROM Users WHERE userID =".$searchID;
 		$result = $conn->query($sql);
 
-		while($row = $result->fetch_assoc()) { 
-			echo "<tr>
-					<td>".$row["userID"]."</td>
-					<td>".$row["name"]."</td>
-					<td>".$row["age"]."</td>
-					<td>".$row["location"]."</td>
-					<td>".$row["email"]."</td>
-					<td>".$row["phone"]."</td>
-				  </tr>";
+		$row = $result->fetch_assoc();
+
+		if(mysqli_num_rows($result)==0) {
+
+			echo "User not found! Please enter a different ID";
+
+		} else {
+			echo "<p><b>Name: </b>".$row["name"]."</p>
+			  	  <p><b>Age: </b>".$row["age"]."</p>
+			  	  <p><b>Location: </b>".$row["location"]."</p>
+			  	  <p><b>Email: </b>".$row["email"]."</p
+			  	  <p><b>Phone: </b>".$row['phone']."</p>";
 		}
 	}
-
-	// Find the helpseeker that has booked an appointment with all counsellors
-	function showActiveHelpSeeker() {
-		global $conn;
-		$sql = "SELECT name
-				FROM Users U, Helpseeker H
-				WHERE U.userID = H.userID AND
-					NOT EXISTS (
-						(SELECT C.userID
-						 FROM Counsellor C)
-						EXCEPT
-						(SELECT C.userID
-						 FROM Counsellor C, Appointment A 
-						 WHERE C.userID = A.counsellorID AND
-						 	   H.userID = A.helpSeekerID)
-					)";
-
-		$result = $conn->query($sql);
-		$row = $result->fetch_assoc();
-		echo $row["name"];
-	}
-
-	// Find the counsellor that has booked an appointment with all help seekers
-	function showActiveCounsellor() {
-		global $conn;
-		$sql = "SELECT name
-				FROM Users U, Counsellor C
-				WHERE U.userID = C.userID AND
-					NOT EXISTS (
-						(SELECT H.userID
-						 FROM HelpSeeker H)
-						EXCEPT
-						(SELECT H.userID
-						 FROM Helpseeker H, Appointment A 
-						 WHERE C.userID = A.counsellorID AND
-						 	   H.userID = A.helpSeekerID)
-					)"; 
-
-		$result = $conn->query($sql);
-		$row = $result->fetch_assoc();
-		echo $row["name"];
-	}
-
-	// Find the counsellor that has the highest rating throughout the platform
-	function showTopCounsellor() {
-		global $conn;
-		$sql = "SELECT U.name, AVG(rating)
-				FROM Review R, Users U
-				WHERE R.counsellor = U.userID
-				GROUP BY U.name
-				HAVING AVG(rating) >= ALL (SELECT AVG(rating)
-			   			   				   FROM Review R2
-			   			   				   GROUP BY R2.counsellor)"; 
-
-		$result = $conn->query($sql);
-		$row = $result->fetch_assoc();
-		echo $row["name"];
-	}
-	
 ?>
 
 <!DOCTYPE html>
@@ -128,7 +75,7 @@
 			        	</a>
 			        	<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 			          		<a class="dropdown-item" href="/cpsc304/view-reviews.php">View Reviews</a>
-			          		<a class="dropdown-item" href="/cpsc304/write-reviews.php">Write a Review</a>
+			          		<a class="dropdown-item" href="#">Write a Review</a>
 			        	</div>
 			      	</li>
 
@@ -141,65 +88,40 @@
 				        	<a class="dropdown-item" href="#">Write a Post</a>
 				        </div>
 			      	</li>
-			      	
+
 			      	<li class="nav-item dropdown">
 			        	<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			          		Directories
 			        	</a>
 				        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-				        	<a class="dropdown-item active" href="/cpsc304/user-directory.php">Users</a>
-				        	<a class="dropdown-item" href="/cpsc304/hotline-directory.php">Hotlines</a>
+				        	<a class="dropdown-item" href="/cpsc304/user-directory.php">Users</a>
+				        	<a class="dropdown-item active" href="/cpsc304/hotline-directory.php">Hotlines</a>
 				        	<a class="dropdown-item" href="/cpsc304/resource-centre-directory.php">Resource Centers</a>
 				        	<a class="dropdown-item" href="/cpsc304/types-of-help-directory.php">Types of Help</a>
 				        </div>
 			      	</li>
 			      	
-			      	<li class="nav-item dropdown">
-			        	<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			          		Leaderboard
-			        	</a>
-				        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-				        	<a class="dropdown-item" href="/cpsc304/top-counsellor.php">Top Counsellor</a>
-				        	<a class="dropdown-item" href="/cpsc304/active-counsellor.php">Most Active Counsellor</a>
-				        	<a class="dropdown-item" href="/cpsc304/active-helpseeker.php">Most Active Help Seeker</a>
-				        </div>
-			      	</li>
-
 			    </ul>
 	  		</div>
 		</nav>
-
+		
 		<!-- Page content -->
 		<div class = "container">
-			<h1 class = "text-center mt-5 mb-4"> User Directory </h1>
-
-			<!--
-			<div class='alert alert-success' role='alert'>
-				<b>Top Rated Counsellor</b> (highest average rating): <b><?php //showTopCounsellor()?></b>
+			<h1 class = "text-center mt-5 mb-4"> Find A User</h1>
+			<p class = "text-center"> Search for a user's basic information through their user ID </p>
+			<form action = '' method='POST' class = "form-inline justify-content-center">
+				   	<input name='searchUserID' type='text' class='form-control' placeholder='User ID'/>
+					<button name='SearchSubmit' type='submit' class='btn btn-success ml-3'>Search</button>
+				  </div>
+			</form>
+			<div class = "container mt-5 text-center">
+				<?php
+					// Check if the search form is submitted
+					if(isset($_POST['SearchSubmit'])){ 
+						showInfo();
+					} 
+				?>
 			</div>
-
-			<div class="alert alert-info" role="alert">
-			  <b>Most Active HelpSeeker</b> (booked an appointment with all counsellors): <b><?php //showActiveHelpSeeker() ?></b>
-			</div>
-
-			<div class="alert alert-info" role="alert">
-			  <b>Most Active Counsellor </b> (booked an appointment with help seekers): <b><?php //showActiveCounsellor() ?></b>
-			</div>
-			-->
-			
-			<table class="table mt-5 mb-5">
-			<thead>
-				<tr>
-					<th>UserID</th>
-					<th>Name</th>
-					<th>Age</th>
-					<th>Location</th>
-					<th>Email</th>
-					<th>Phone</th>
-				</tr>
-			</thead>
-			<?php showUsers() ?>
-			</table>
 		</div>
 	</body>
 	<?php CloseCon($conn) ?>

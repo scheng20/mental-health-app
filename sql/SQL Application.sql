@@ -18,6 +18,10 @@ SET yearsExperience = '$experience',
 WHERE userID =.$_SESSION["userID"];
 
 # Selection
+SELECT name, age, location, email, phone FROM Users WHERE userID = $searchID;
+
+SELECT name, age, location, email, phone FROM Users WHERE userID = $_SESSION["userID"];
+
 SELECT yearsExperience, certification, numPatients
 FROM counsellor
 WHERE userID = $_SESSION["userID"];

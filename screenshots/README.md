@@ -29,21 +29,21 @@
 **After:** The appointments table is joined with the user table on the userID (which is provided by the user when they first login onto our platform) to display all of the appointments related to the user.
 
 ## Aggregation With Group By
-**Before:** User clicks the "View Ratings" tab under the "Stats" category in the navigation bar. 
+**Before:** User clicks the "View Reviews" tab under the "Reviews" category in the navigation bar. 
 
-**After:** User is greeted with a table that shows the average rating grouped by each counsellor based on that counsellor's reviews.
+**After:** At the bottom of the page, user is greeted with a table that shows the average rating grouped by each counsellor based on that counsellor's reviews.
 
 ## Aggregation With Having
-**Before:** A counsellor (type of user) clicks the "Profile" page on the navigation bar. 
+**Before:** A counsellor (type of user) clicks the "Profile" tab on the navigation bar. 
 
 **After:** A counsellor can see their average rating (based on their reviews) and number of distinct patients they've helped (based on their appointments).
 
 ## Nested Aggregation with Group By
-**Before:** User navigates to the "View Leaderboard" tab under the "Stats" category, user clicks the "Find Highest Rated Counsellor" button.
+**Before:** User navigates to the "Top Counsellor" page under the "Leaderboard" category in the navigation bar.
 
 **After:** The page returns an alert box that shows who the top rated cousenllor (counsellor with highest average rating) is.
 
 ## Division 
-**Before:** User navigates to the "View Leaderboard" tab under the "Stats" category, user clicks the "Find Most Active Counsellor" button.
+**Before:** User navigates to the "Most Active Counsellor" page under the "Leaderboard" category in the navigation bar.
 
-**After:** The page returns an alert box that shows who the most active cousenllor (booked an appointment with help seekers) is.
+**After:** The page returns an alert box that shows who the most active cousenllor (booked an appointment with all help seekers) is.
