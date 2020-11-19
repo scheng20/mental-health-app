@@ -1,4 +1,16 @@
 # Insert
+INSERT INTO Users (password, name, age, location, email, phone)
+	VALUES ('password', 'name', 0, 'location', 'email', 'phone')
+
+INSERT INTO Appointment (counsellorID, helpSeekerID, meetingPlatform,
+							date, startTime, endTime)
+	VALUES (0, 0, 'meetingPlatform', 'date', 'startTime', 'endTime')
+
+INSERT INTO Counsellor (userID, yearsExperience, certification, numPatients)
+	VALUES (0, 0, 'certification', 0)
+
+INSERT INTO HelpSeeker (userID, numCounsellors, numReviews)
+	VALUES (0, 0, 0)
 
 # Delete
 DELETE FROM Users WHERE userID = $_SESSION['userID'];

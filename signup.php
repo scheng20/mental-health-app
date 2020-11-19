@@ -131,8 +131,8 @@
         if ($type == "Counsellor") {
             $yearsExp = $_POST["yearsExp"];
             $cert = $_POST["cert"];
-            $sql = "insert into Counsellor (userID, yearsExperience, certification) values";
-            $sql .= "($id, $yearsExp, '$cert');";
+            $sql = "insert into Counsellor (userID, yearsExperience, certification, numPatients) values";
+            $sql .= "($id, $yearsExp, '$cert', 0);";
             $result = $conn->query($sql);
 
             if (!$result) {
@@ -141,7 +141,7 @@
             }
             
         } else {
-            $sql = "insert into HelpSeeker (userID) values ($id);";
+            $sql = "insert into HelpSeeker (userID, numCounsellors, numReviews) values ($id, 0, 0);";
             $result = $conn->query($sql);
 
             if (!$result) {
