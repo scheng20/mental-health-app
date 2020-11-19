@@ -16,7 +16,9 @@
 **After:** User account details are updated in the database with new information entered by the user. User is redirected to profile page where they can see their updated information. 
 
 ## Selection
-**TODO**
+**Before:** User navigates to the "Lookup" page and inputs a user id in the search bar and presses the search button.
+
+**After:** Page returns a user's basic information based on the searched id, or returns no user found if invalid id id entered.
 
 ## Projection
 **Before:** User clicks any of the directory pages on the navigation bar (in this case, it's hotlines).
