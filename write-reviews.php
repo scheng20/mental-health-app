@@ -24,7 +24,7 @@
 	function processReview() {
 		global $conn;
         $reviewAuthor = $_SESSION["userID"];
-        $counsellor = $_POST["userID"];
+        $counsellor = $_POST["counsellor"];
         $rating = $_POST["rating"];
         $feedback = $_POST["feedback"];
         
@@ -34,20 +34,30 @@
         return $result;
 	}
 
-	// Display the review form
 	function showReviewForm() {
+		echo "
+			<form action='' method='post' >
 
-		global $conn; 
-		$sql = "SELECT * FROM Users WHERE userID =". $_SESSION['userID'];
-		$result = $conn->query($sql);
+                <div class='form-group col-md-5'>
+                    <label for='counsellor' id='counsellor'>Your counsellor's ID: </label>
+                    <input type='number' name='counsellor' required></input>
+                </div>
 
-		while($row = $result->fetch_assoc()) {
-            $sql = "SELECT name FROM Users WHERE userID=".$row["userID"];
-            $name = $conn->query($sql)->fetch_assoc()['name'];
-			echo "<option value=".$row["userID"].">$name</option>";
-		}
+                <div class='form-group col-md-3'>
+                    <label for='rating' id='rating'>Please rate: </label>
+                    <input type='number' name='rating' required></input>
+                </div>
+
+                <div class='form-group col-md-3'>
+                    <label for='feedback' id='feedback'>Please give us your feedback: </label>
+                    <input type='text' name='feedback' required></input>
+                </div>
+
+                <button name = 'ReviewSubmit' class='btn btn-success' type='submit' value='submit'>Submit Review </button>
+            </form>
+		";
 	}
-	
+
 ?>
 
 
@@ -127,41 +137,15 @@
         </nav>
 		<!-- Page content -->
 		<div class = "container">
-        
-			<h1 class = "text-center mt-5 mb-5"> Update Reviews </h1>
-			<form action="./write-reviews.php" method="post" >
-                <div class="form-group">
-                    <select class="form-control" name="userID" id="userID"> 
-                    <?php 
-                    	if($_SESSION["userType"] == "helpSeeker") {
-							showReviewForm();
-						}
-			 		?>
-                    </select>
-                </div>
+			<h1 class = "text-center mt-5 mb-5"> Write A Review </h1>
 
-                <div class="form-group">
-                    <label for="reviewAuthor" id="reviewAuthor">Your userID: </label>
-                    <input name="reviewAuthor" id="reviewAuthor" required></input>
-                </div>
-
-                <div class="form-group col-md-5">
-                    <label for="counsellor" id="counsellor">Your counsellor's ID: </label>
-                    <input type="number" name="counsellor" required></input>
-                </div>
-
-                <div class="form-group col-md-3">
-                    <label for="rating" id="rating">Please rate: </label>
-                    <input type="number" name="rating" required></input>
-                </div>
-
-                <div class="form-group col-md-3">
-                    <label for="feedback" id="feedback">Please give us your feedback: </label>
-                    <input type="text" name="feedback" required></input>
-                </div>
-
-                <button class="btn btn-success" type="submit" value="submit">Sign up </button>
-            </form>
+			<?php 
+				if($_SESSION["userType"] == "helpSeeker") {
+					showReviewForm();
+				} else {
+					echo "Sorry this feature is only avaliable to help seekers.";
+				}
+			?>
 
 		</div>
 	</body>
