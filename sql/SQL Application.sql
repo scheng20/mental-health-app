@@ -12,6 +12,9 @@ INSERT INTO Counsellor (userID, yearsExperience, certification)
 INSERT INTO HelpSeeker (userID, numCounsellors, numReviews)
 	VALUES (0, 0, 0)
 
+INSERT INTO Review (reviewAuthor, counsellor, rating, feedback) 
+	VALUES ($reviewAuthor, $counsellor, $rating, '$feedback');
+
 # Delete
 DELETE FROM Users WHERE userID = $_SESSION['userID'];
 
