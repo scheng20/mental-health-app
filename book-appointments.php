@@ -4,8 +4,8 @@
     session_start();
     $conn = OpenCon();
 
+	// Display all counsellors
 	function showCounsellors() {
-
 		global $conn;  
 		$sql = "SELECT * FROM Counsellor";
 		$result = $conn->query($sql);

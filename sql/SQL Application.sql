@@ -1,4 +1,16 @@
 # Insert
+INSERT INTO Users (password, name, age, location, email, phone)
+	VALUES ('password', 'name', 0, 'location', 'email', 'phone')
+
+INSERT INTO Appointment (counsellorID, helpSeekerID, meetingPlatform,
+							date, startTime, endTime)
+	VALUES (0, 0, 'meetingPlatform', 'date', 'startTime', 'endTime')
+
+INSERT INTO Counsellor (userID, yearsExperience, certification)
+	VALUES (0, 0, 'certification')
+
+INSERT INTO HelpSeeker (userID, numCounsellors, numReviews)
+	VALUES (0, 0, 0)
 
 # Delete
 DELETE FROM Users WHERE userID = $_SESSION['userID'];
@@ -18,13 +30,22 @@ SET yearsExperience = '$experience',
 WHERE userID =.$_SESSION["userID"];
 
 # Selection
-SELECT name, age, location, email, phone FROM Users WHERE userID = $searchID;
+SELECT name, age, location, email, phone 
+FROM Users 
+WHERE userID = $searchID;
 
-SELECT name, age, location, email, phone FROM Users WHERE userID = $_SESSION["userID"];
-
-SELECT yearsExperience, certification, numPatients
-FROM counsellor
+SELECT name, age, location, email, phone 
+FROM Users 
 WHERE userID = $_SESSION["userID"];
+
+SELECT yearsExperience, certification
+FROM Counsellor
+WHERE userID = $_SESSION["userID"];
+
+SELECT COUNT(DISTINCT A.helpSeekerID) AS numOfPatients
+FROM Appointment A
+GROUP BY A.counsellorID
+HAVING A.counsellorID = 0
 
 # Projection
 SELECT userID, name, age, location, email, phone FROM Users;
