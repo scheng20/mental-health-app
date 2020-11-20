@@ -4,6 +4,7 @@
     session_start();
     $conn = OpenCon();
 
+    // Add new appointment 
     function bookAppointment() {
         global $conn;
         $id = $_SESSION["userID"];
@@ -19,6 +20,7 @@
         return $result;
     }
 
+    // Display successful/unsuccessful booking
     function displayContents() {
         if (bookAppointment()) {
             echo '<div class="alert alert-success" role="alert">

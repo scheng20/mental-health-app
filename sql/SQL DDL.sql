@@ -24,7 +24,6 @@ CREATE TABLE Counsellor (
 	userID				int		     PRIMARY KEY,
 	yearsExperience		int,
 	certification		varchar(500)    NOT NULL,
-	numPatients			int,			
 	FOREIGN KEY (userID) REFERENCES Users(userID) ON DELETE CASCADE,
 	FOREIGN KEY (yearsExperience) REFERENCES CounsellorYearsExperience(yearsExperience) ON DELETE CASCADE
 );

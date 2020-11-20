@@ -4,6 +4,7 @@
     session_start();
 	$conn = OpenCon();
 
+	// get and display all resource centre information
 	function showResourceCentres() {
 
 		global $conn;  

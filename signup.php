@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html>
 <head>
-    <!-- Bootstrap Stylesheet -->
+        <!-- Bootstrap Stylesheet -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
 		<!-- Custom Stylesheet -->
@@ -91,11 +91,13 @@
     $conn = OpenCon();
 
     if (isset($_POST["type"])) {
-        addUser();
+        addUser(); // only add user to DB if form is submitted
     }
 
+    // add new user to DB
     function addUser() {
         global $conn;
+        // get all user data submitted from signup form
         $type = $_POST["type"];
         $name = $_POST["name"];
         $password = $_POST["password"];
@@ -119,25 +121,28 @@
         }
     
         $sql = "select userID from Users where email='$email';";
-        $result= $conn->query($sql);
+        $result= $conn->query($sql); // get assigned userID to new user from table
         if (!$result) {
             returnError();
             return;
         }
     
         $id = $result->fetch_assoc()["userID"];
-        $_SESSION["userID"] = $id;
+        $_SESSION["userID"] = $id; // set session variable to user ID
     
-        if ($type == "Counsellor") {
+        // add user to either counsellor or helpseeker table
+        if ($type == "Counsellor") { 
             $yearsExp = $_POST["yearsExp"];
             $cert = $_POST["cert"];
-            $sql = "insert into Counsellor (userID, yearsExperience, certification, numPatients) values";
-            $sql .= "($id, $yearsExp, '$cert', 0);";
+            $sql = "insert into Counsellor (userID, yearsExperience, certification) values";
+            $sql .= "($id, $yearsExp, '$cert');";
             $result = $conn->query($sql);
 
             if (!$result) {
                 returnError();
                 return;
+            } else {
+                header("Location: /cpsc304/profile.php"); // redirect to new profile
             }
             
         } else {
@@ -153,6 +158,7 @@
         }
     }
 
+    // user creation error
     function returnError() {
         echo "<div class='alert alert-primary'> Sorry, could not create your account. Try again</div>";
     }

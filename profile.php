@@ -59,7 +59,7 @@
 		global $conn;
 
 		// Fetch yearsOfExperience, certification 
-		$sql = "SELECT yearsExperience, certification, numPatients 
+		$sql = "SELECT yearsExperience, certification 
 				FROM counsellor
 				WHERE userID =".$_SESSION['userID'];
 		$result = $conn->query($sql);
