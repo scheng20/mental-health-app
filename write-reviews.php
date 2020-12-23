@@ -96,7 +96,7 @@
 			        	</a>
 				        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 				        	<a class="dropdown-item" href="/cpsc304/view-appointments.php">View Appointments</a>
-				        	<a class="dropdown-item active" href="/cpsc304/book-appointments.php">Book an Appointment</a>
+				        	<a class="dropdown-item" href="/cpsc304/book-appointments.php">Book an Appointment</a>
 				        </div>
 			      	</li>
 
@@ -106,18 +106,8 @@
 			        	</a>
 			        	<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 			          		<a class="dropdown-item" href="/cpsc304/view-reviews.php">View Reviews</a>
-			          		<a class="dropdown-item" href="#">Write a Review</a>
+			          		<a class="dropdown-item active" href="#">Write a Review</a>
 			        	</div>
-			      	</li>
-
-			     	<li class="nav-item dropdown" aria-labelledby="navbarDropdownMenuLink">
-			        	<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			          		Posts
-			        	</a>
-				        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-				        	<a class="dropdown-item" href="#">View Posts</a>
-				        	<a class="dropdown-item" href="#">Write a Post</a>
-				        </div>
 			      	</li>
 
 			      	<li class="nav-item dropdown">
@@ -130,6 +120,21 @@
 				        	<a class="dropdown-item" href="/cpsc304/resource-centre-directory.php">Resource Centers</a>
 				        	<a class="dropdown-item" href="/cpsc304/types-of-help-directory.php">Types of Help</a>
 				        </div>
+			      	</li>
+
+			      	<li class="nav-item dropdown">
+			        	<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			          		Leaderboard
+			        	</a>
+				        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+				        	<a class="dropdown-item" href="/cpsc304/top-counsellor.php">Top Counsellor</a>
+				        	<a class="dropdown-item" href="/cpsc304/active-counsellor.php">Most Active Counsellor</a>
+				        	<a class="dropdown-item" href="/cpsc304/active-helpseeker.php">Most Active Help Seeker</a>
+				        </div>
+			      	</li>
+
+			      	<li class="nav-item">
+			        	<a class="nav-link" href="/cpsc304/lookup.php">Look Up</a>
 			      	</li>
 			      	
 			    </ul>
