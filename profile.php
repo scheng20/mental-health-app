@@ -6,7 +6,12 @@
 	session_start();
 
 	//$_SESSION["userID"] = 1; // HARDCODED USER ID FOR LOCAL TESTING PURPOSES, REMOVE LATER
-		
+	
+	// Check if the logout button is clicked
+	if(isset($_POST['logoutSubmit'])){ 
+		logout();
+	} 
+
 	// Determine if the current user is a counsellor or help seeker
 	// NOTE: This function may need to be refactored to be in the login page instead
 	function setUserType() {
@@ -213,6 +218,12 @@
 
 	}
 
+	// Logs a user out
+	function logout() {
+		session_destroy();
+		header("Location: /cpsc304/login.php");
+	}
+
 ?>
 
 <!DOCTYPE html>
@@ -318,6 +329,11 @@
 					<?php showBasicInfo() ?>
 					<a href="/cpsc304/edit-profile.php" class="btn btn-success mr-2">Edit Profile</a>
 					<a href="/cpsc304/delete-profile.php" class="btn btn-danger">Delete Account</a>
+
+					<form action = '' method='POST'>
+						<button name='logoutSubmit' type='submit' class='btn btn-primary mt-2'>Logout</button>
+					</form>
+					
 				</div>
 				<div class = "col">
 					<?php 
