@@ -80,7 +80,7 @@
         <button class="btn btn-light" type="submit" value="submit">Sign up </button>
     </form>
 
-    <div class="alert alert-info mt-3" id="login-link">Already have an account? Login <a href="./login.html">here</a></p>
+    <div class="alert alert-info mt-3" id="login-link">Already have an account? Login <a href="./login.php">here</a></p>
 </div>
 </body>
 </html>
