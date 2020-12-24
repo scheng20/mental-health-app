@@ -2,7 +2,7 @@
 
 An all-in-one platform that helps users get connected with certified counsellors and resources.
 
-<img src="screenshots/Delete%20-%20After.png" width="275" title="Login"> <img src="screenshots/Insert%20-%20Before.png" width="275" title="Signup"> <img src="screenshots/Profile.png" width="275" title="Profile">
+<img src="screenshots/Delete%20-%20After.png" width="275" title="Login"> <img src="screenshots/Profile1.png" width="275" title="Profile HelpSeeker"> <img src="screenshots/Profile2.png" width="275" title="Profile Counsellor">
 
 <img src="screenshots/Join%20-%20After.png" width="275" title="Appointments"> <img src="screenshots/Selection%20-%20After.png" width="275" title="Lookup"> <img src="screenshots/Update%20-%20Before%202.png" width="275" title="Update">
 
